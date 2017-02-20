@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="dd">
-      主页
+      用户购物车
     </div>
     <img v-bind:src="logoImg">
     <h1>{{ msg }}</h1>
@@ -31,7 +31,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 body {
   font-family: Helvetica, sans-serif;
 }

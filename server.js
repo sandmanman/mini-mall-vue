@@ -15,8 +15,8 @@ app.use(express.static('./dist'));
 //   // next();
 // });
 
-app.get('/', function(req, res) {
-  res.send('Hello Vue');
+app.get('/', function (req, res) {
+	res.send('Hello Vue');
 });
 
 app.listen(2333);
