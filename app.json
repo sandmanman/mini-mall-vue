@@ -25,11 +25,11 @@
     "basePath": "./src/pages/",
     "cdn": {
         "js": [
-            "//cdn.jsdelivr.net/vue/2.0.0-rc.7/vue.min.js",
+            "//cdn.jsdelivr.net/vue/2.0.0-rc.7/vue.min.js"
         ],
         "css": []
     },
     "externals": {
-        "vue": "Vue",
+        "vue": "Vue"
     }
 }
