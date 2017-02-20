@@ -7,7 +7,8 @@
 
 ## Development
 
-- vue2
+- [vue2](https://vuefe.cn/v2/guide/)
+- [Mint UI](https://github.com/ElemeFE/mint-ui)
 - webpack
 
 ```shell
