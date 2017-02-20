@@ -1,0 +1,27 @@
+{
+  "name": "mini-mall-vue",
+  "version": "1.0.0",
+  "description": "mini mall",
+  "private": true,
+  "keywords": [],
+  "scripts": {
+    "dev": "cooking watch -p",
+    "dist": "cooking build -p",
+    "deploy": "cooking build --no-color"
+  },
+  "author": "sandman",
+  "license": "ISC",
+  "dependencies": {
+    "vue": "2.1.4",
+    "babel-polyfill": "*"
+  },
+  "devDependencies": {
+    "cooking-sass": "^0.5.0",
+    "cooking-vue2": "*",
+    "vue-electron": "^1.0.0",
+    "vue-resource": "^1.0.3",
+    "vue-router": "^2.1.0",
+    "vue-template-compiler": "2.1.4",
+    "vue-loader": "10.0.0"
+  }
+}
