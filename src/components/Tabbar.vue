@@ -55,9 +55,10 @@ export default {
   }
 
   /*active icon style*/
-  .weui_bar_item_on {
+  .weui_tabbar_item.weui_bar_item_on {
+    .weui_tabbar_label,
     .icon-font {
-      color: #09BB07;
+      color: #000 !important;
     }
     .icon-home:before {
       content: "\f448";
