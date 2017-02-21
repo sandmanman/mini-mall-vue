@@ -1,4 +1,12 @@
-# Vue 多页面开发
+# mini mall
+
+>练习一个简单的手机端购物商城
+
+# 脚手架
+
+  [jiananle/vue-multi-page](https://github.com/jiananle/vue-multi-page)
+
+## Vue 多页面开发
 
 ## 概述
 
@@ -43,7 +51,7 @@ npm run build
     	|--- fonts
         |--- img
 	|--- components // 组件，根据业务划分
-    	|--- common // 通用组件
+    	|--- common // 公用组件
         	|--- loading.vue
     	|--- home
             |--- index-info.vue
@@ -113,7 +121,7 @@ npm run build
 > - 当前业务模块下的公用组件:   命名格式 ` [业务模块]-[组件].vue` 
 > - 全业务模块的通用组件： 命令格式 `组件名.vue`   
 
-#### 通用组件
+#### 公用组件
 
 组件样式需添加 `scoped` ，编译时会直接整合到页面的样式中
 
