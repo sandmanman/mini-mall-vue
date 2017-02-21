@@ -59,7 +59,6 @@
   "dependencies": {
     "jquery": "^3.1.1",
     "less-loader": "^2.2.3",
-    "vue": "^2.0.3",
-    "vux": "^2.1.0-rc.51"
+    "vue": "^2.0.3"
   }
 }

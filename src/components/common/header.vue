@@ -23,7 +23,7 @@
     }
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
     .navbar-light--skyblue {
         background-color: #e3f2fd;
     }
