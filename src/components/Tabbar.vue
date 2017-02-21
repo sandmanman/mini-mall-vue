@@ -40,7 +40,7 @@ export default {
       top: -2px;
       vertical-align: top;
 
-      color: #373737;
+      color: #888;
       font-size: 26px;
       &:before {
         line-height: normal;
