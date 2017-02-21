@@ -1,11 +1,11 @@
 # mini mall
 
->练习一个简单的手机端购物商城
+>练习，一个简单的手机端购物商城
 
-# 脚手架
+- [vux](https://vux.li/#/zh-CN/README)
+- [脚手架 - jiananle/vue-multi-page](https://github.com/jiananle/vue-multi-page)
 
-  [jiananle/vue-multi-page](https://github.com/jiananle/vue-multi-page)
-
+  
 ## Vue 多页面开发
 
 ## 概述

@@ -92,19 +92,19 @@ module.exports = {
     },
 
     module: {
-        preLoaders: [
-            {
-                test: /\.vue$/,
-                loader: 'eslint',
-                include: projectRoot,
-                exclude: /node_modules/
-            },
-            {
-                test: /\.js$/,
-                loader: 'eslint',
-                include: projectRoot,
-                exclude: /node_modules/
-            }
+        preLoaders: [ // eslint注释掉，校验
+            // {
+            //     test: /\.vue$/,
+            //     loader: 'eslint',
+            //     include: projectRoot,
+            //     exclude: /node_modules/
+            // },
+            // {
+            //     test: /\.js$/,
+            //     loader: 'eslint',
+            //     include: projectRoot,
+            //     exclude: /node_modules/
+            // }
         ],
 
         loaders: [
