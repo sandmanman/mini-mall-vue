@@ -1,22 +1,37 @@
 <template>
   <div class="container">
     <div class="weui-tab">
+      <headerbar></headerbar>
+
       <div class="weui-tab__panel">
         <router-view></router-view>
       </div>
-      <div class="weui-tabbar">
-        <tabbar></tabbar>
-      </div>
+      
+      <tabbar-comp></tabbar-comp>
     </div>
   </div>
 </template>
 
 <script>
-  import Tabbar from './components/Tabbar'
+  import Headerbar from './components/Headerbar'
+  import TabbarComp from './components/Tabbar'
+  
   export default {
     name: 'app',
     components: {
-      Tabbar
+      Headerbar,
+      TabbarComp
+    },
+    mounted() {
+      // 设置 .weui-tab__panel 的 padding-top/bottom
+      var tabbarEle = document.querySelector('.weui_tabbar'),
+          headerbarEle = document.querySelector('.headerbar'),
+          panelEle = document.querySelector('.weui-tab__panel'),
+          tabbarHeight = tabbarEle.offsetHeight,
+          headerbarHeight = headerbarEle.offsetHeight;
+          
+      panelEle.style.paddingTop = headerbarHeight + 'px';
+      panelEle.style.paddingBottom = tabbarHeight + 'px';
     }
   }
 
