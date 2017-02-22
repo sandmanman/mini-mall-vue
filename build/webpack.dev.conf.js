@@ -17,6 +17,17 @@ module.exports = merge(baseWebpackConfig, {
   },
   // cheap-module-eval-source-map is faster for development
   devtool: '#cheap-module-eval-source-map',
+  devServer: {
+    hot: true,
+    inline: true,
+    //其实很简单的，只要配置这个参数就可以了
+    proxy: {
+      '/api/*': {
+          target: 'http://localhost:5000',
+          secure: false
+      }
+    }
+  },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': config.dev.env
