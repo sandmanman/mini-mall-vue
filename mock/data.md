@@ -61,8 +61,8 @@
 - 分类列表
   https://api.ricebook.com/4/tab/category_product_list.json?category_id=7&sort=1&from_id=0&city_id=104&page=0
 
-- 排序
-  https://api.ricebook.com/4/tab/sub_category.json?category_id=6&city_id=104&from_id=0
+- 排序字段
+  https://api.ricebook.com/4/tab/sub_category.json?category_id=22&city_id=104&from_id=0
 
 - 搜素
   https://api.ricebook.com/3/enjoy_product/search.json?city_id=104&keyword=XXX&page=0
