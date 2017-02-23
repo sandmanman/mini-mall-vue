@@ -21,31 +21,62 @@
   https://ifanr.in/api/v1.4/product_recommand/?limit=10&page=0&offset=0&img_size=small
 
 
+------
+
+
 ### ENJOY
 
+[ENJOY](https://enjoy.ricebook.com/)
+
 - 首页
-  https://s1.ricebook.com/home/1734b9498b0ff78af652b8afe00c12a2.json
+  https://api.ricebook.com/hub/home/v1/home/page.json?city=104
 
 - 精选餐厅
-  https://s1.ricebook.com/home/8d777d4a869580c940ac07a4825e459b.json
+  https://api.ricebook.com/hub/home/v1/home/tab.json?type=2&city=104
 
 - 挑美酒
-  https://s1.ricebook.com/home/da9e2975bd4b37b121c8334a8ba46c06.json
+  https://api.ricebook.com/hub/home/v1/home/tab.json?type=102&city=104
 
 - 找好物
-  https://s1.ricebook.com/home/6178877b0bfd5f14af3b4af73ae1f2f8.json
+  https://api.ricebook.com/hub/home/v1/home/tab.json?type=103&city=104
 
 - 优选食品
-  https://s1.ricebook.com/home/f462750859b09639d6f69d435201a66e.json
+  https://api.ricebook.com/hub/home/v1/home/tab.json?type=104&city=104
 
 - 臻品咖啡
-  https://s1.ricebook.com/home/2c1cd65f84eeb0c274fdb096d87cdf82.json
+  https://api.ricebook.com/hub/home/v1/home/tab.json?type=105&city=104
 
 - 产品详细
-  https://api.ricebook.com/3/enjoy_product/product_addition_info.json?product_id=1031130
+  https://api.ricebook.com/3/enjoy_product/product_addition_info.json?product_id=1030409
 
 - 产品详细规格
   https://api.ricebook.com/3/enjoy_product/sub_product_info.json?product_id=1031130
 
 - 推荐产品
   https://api.ricebook.com/3/enjoy_product/recommend_product_v2.json?product_id=1031130
+
+- 分类
+  https://api.ricebook.com/4/tab/category.json?city_id=104
+
+- 分类列表
+  https://api.ricebook.com/4/tab/category_product_list.json?category_id=7&sort=1&from_id=0&city_id=104&page=0
+
+- 排序
+  https://api.ricebook.com/4/tab/sub_category.json?category_id=6&city_id=104&from_id=0
+
+- 搜素
+  https://api.ricebook.com/3/enjoy_product/search.json?city_id=104&keyword=XXX&page=0
+
+- 城市ID
+- - channel_id="140" 北京
+- - channel_id="104" 上海
+- - channel_id="216" 广州
+- - channel_id="299" 深圳
+- - channel_id="235" 成都
+- - channel_id="260" 杭州
+- - channel_id="362" 西安
+- - channel_id="347" 苏州
+- - channel_id="144" 南京
+- - channel_id="388" 重庆
+- - channel_id="185" 天津
+- - channel_id="401" 长沙
