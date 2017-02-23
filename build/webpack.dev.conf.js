@@ -33,17 +33,6 @@ module.exports = merge(baseWebpackConfig, {
   },
   // 配置Source Maps, 在开发中使用cheap-module-eval-source-map更快
   devtool: '#cheap-module-eval-source-map',
-  devServer: {
-    hot: true,
-    inline: true,
-    //其实很简单的，只要配置这个参数就可以了
-    proxy: {
-      '/api/*': {
-          target: 'http://localhost:5000',
-          secure: false
-      }
-    }
-  },
 
   // 配置webpack插件
   plugins: [
