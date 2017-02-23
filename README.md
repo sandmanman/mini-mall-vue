@@ -3,6 +3,7 @@
 > A simple shopping mall for vue.js project
 
 - [Vux](https://vux.li/#/zh-CN/README)
+- [配置文件注释](http://www.qdfuns.com/notes/40585/9e2cd48b5ef2c1fc14118eabe67d11bc.html)
 
 ## Build Setup
 

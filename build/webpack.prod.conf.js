@@ -1,3 +1,15 @@
+/**
+ * webpack.prod.conf.js，同样是在webpack.base.conf基础上的进一步完善。主要完成下面几件事情：
+ * 1. 合并基础的webpack配置
+ * 2. 使用styleLoaders
+ * 3. 配置webpack的输出
+ * 4. 配置webpack插件
+ * 5. gzip模式下的webpack插件配置
+ * 6. webpack-bundle分析
+ * 
+ * webpack插件里面多了丑化压缩代码以及抽离css文件等插件。
+ * 
+ */
 var path = require('path')
 var utils = require('./utils')
 var webpack = require('webpack')
@@ -5,9 +17,16 @@ var config = require('../config')
 var merge = require('webpack-merge')
 var baseWebpackConfig = require('./webpack.base.conf')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
-var env = config.build.env
 
+// 用于从webpack生成的bundle中提取文本到特定文件中的插件
+// 可以抽取出css，js文件将其与webpack输出的bundle分离
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
+
+var env = process.env.NODE_ENV === 'testing'
+  ? require('../config/test.env')
+  : config.build.env
+
+// 合并基础的webpack配置
 var webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({
@@ -16,23 +35,29 @@ var webpackConfig = merge(baseWebpackConfig, {
     })
   },
   devtool: config.build.productionSourceMap ? '#source-map' : false,
+  // 配置webpack的输出
   output: {
+    // 编译输出目录
     path: config.build.assetsRoot,
+    // 编译输出文件名格式
     filename: utils.assetsPath('js/[name].[chunkhash].js'),
+    // 没有指定输出名的文件输出的文件名格式
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
   },
+  // 配置webpack插件
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
       'process.env': env
     }),
+    // 丑化压缩代码
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false
       },
       sourceMap: true
     }),
-    // extract css into its own file
+    // 抽离css文件
     new ExtractTextPlugin({
       filename: utils.assetsPath('css/[name].[contenthash].css')
     }),
@@ -76,6 +101,7 @@ var webpackConfig = merge(baseWebpackConfig, {
   ]
 })
 
+// gzip模式下需要引入compression插件进行压缩
 if (config.build.productionGzip) {
   var CompressionWebpackPlugin = require('compression-webpack-plugin')
 
