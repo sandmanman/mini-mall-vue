@@ -9,7 +9,7 @@ import UserCenter from 'pages/user/user-center.vue';
 
 export default [{
     path: '/',
-    name: 'home',
+    name: 'index',
     component: Home
   },{
     path: '/home',

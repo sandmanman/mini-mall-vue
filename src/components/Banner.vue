@@ -1,22 +1,16 @@
 <template>
   <div class="banner-wrap">
-    <swiper :list="bannerList" auto height="220px" dots-class="custom-bottom" dots-position="center"></swiper>
+    <swiper auto :aspect-ratio="470/800" :show-dots="false" dots-position="center">
+      <swiper-item v-for="item in bannerList">
+        <img :src="item.image">
+      </swiper-item>
+    </swiper>
   </div>
 </template>
 
 <script>
   import { Swiper, SwiperItem } from 'vux';
 
-  const imgList = [
-    'https://static.vux.li/demo/1.jpg',
-    'https://static.vux.li/demo/2.jpg',
-    'https://static.vux.li/demo/3.jpg'
-  ];
-  const bannerList = imgList.map((one, index) => ({
-    url: 'javascript:',
-    img: one
-  }));
-  
   export default {
     name: 'banner',
     components: {
@@ -25,16 +19,30 @@
     },
     data() {
       return {
-        bannerList: bannerList
+        bannerApi: '/api/campaign_banner/?img_size=medium&limit=10&page=0&offset=0&platform=mobile',
+        bannerList: {}
       }
+    },
+    created() {
+      this.$http.get(this.bannerApi).then((response) => {
+          if (response.ok == true) {
+            response = response.body;
+            this.bannerList = response.objects;
+          }
+        })
+        .catch(function(response) {
+          console.log(response)
+        })
     }
   }
 </script>
 
 <style lang="less">
-  .banner-wrap {
-    img {
-      max-width: 100%;
-    }
+  .banner-wrap img {
+    max-width: 100%;
+  }
+  .vux-slider > .vux-indicator > a > .vux-icon-dot.active,
+  .vux-slider .vux-indicator-right > a > .vux-icon-dot.active {
+    background-color: #000;
   }
 </style>

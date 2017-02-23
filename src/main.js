@@ -2,10 +2,12 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import FastClick from 'fastclick';
+import VueResource from 'vue-resource';
 import router from 'src/router/router';
 
 import App from './App';
 
+Vue.use(VueResource);
 
 FastClick.attach(document.body);
 
