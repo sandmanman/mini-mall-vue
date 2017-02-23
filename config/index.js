@@ -38,7 +38,7 @@ module.exports = {
     // webpack的编译环境
     env: require('./dev.env'),
     // dev-server监听的端口
-    port: 1128,
+    port: 8080,
     // 启动dev-server之后是否自动打开浏览器
     autoOpenBrowser: false,
     // webpack编译输出的二级文件夹
