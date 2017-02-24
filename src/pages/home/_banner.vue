@@ -17,22 +17,8 @@
       Swiper,
       SwiperItem
     },
-    data() {
-      return {
-        bannerApi: '/api/campaign_banner/?img_size=medium&limit=10&page=0&offset=0&platform=mobile',
-        bannerList: {}
-      }
-    },
-    created() {
-      this.$http.get(this.bannerApi).then((response) => {
-          if (response.ok == true) {
-            response = response.body;
-            this.bannerList = response.objects;
-          }
-        })
-        .catch(function(response) {
-          console.log(response)
-        })
+    props: {
+      bannerList: {}
     }
   }
 </script>

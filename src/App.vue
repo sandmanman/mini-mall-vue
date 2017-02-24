@@ -1,20 +1,26 @@
 <template>
   <div class="container">
-    <div class="weui-tab">
-      <headerbar></headerbar>
+    <div class="page">
+      <div class="page_bd">
 
-      <div class="weui-tab__panel">
-        <router-view></router-view>
+        <headerbar></headerbar>
+
+        <div class="weui-tab">
+          <div class="weui-tab__panel">
+            <router-view></router-view>
+          </div>
+          
+          <tabbar-comp></tabbar-comp>
+        </div>
+
       </div>
-      
-      <tabbar-comp></tabbar-comp>
     </div>
   </div>
 </template>
 
 <script>
-  import Headerbar from './components/Headerbar'
-  import TabbarComp from './components/Tabbar'
+  import Headerbar from './components/headerbar'
+  import TabbarComp from './components/tabbar'
   
   export default {
     name: 'app',
@@ -43,9 +49,27 @@
     height: 100%;
   }
   body {
-    background-color: #fbf9fe;
+    background-color: #f8f8f8;
   }
   
+  .container {
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+  }
+  .container,
+  .page {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  .page_bd {
+    height: 100%;
+  }
   .weui-tab {
     position: relative;
     height: 100%;
@@ -53,19 +77,10 @@
   
   .weui-tab__panel {
     box-sizing: border-box;
-    height: 100%;
+    min-height: 100%;
     padding-bottom: 50px;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
-  }
-  
-  .weui-tabbar {
-    display: flex;
-    position: absolute;
-    z-index: 500;
-    bottom: 0;
-    width: 100%;
-    background-color: #f7f7fa;
   }
 
 </style>

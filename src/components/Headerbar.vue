@@ -21,12 +21,13 @@
     position: fixed;
     left: 0;
     top: 0;
+    z-index: 100;
 
     width: 100%;
-    min-height: 55px;
+    min-height: 50px;
 
     color: #fff;
-    line-height: 55px;
+    line-height: 50px;
 
     background-color: #000;
 

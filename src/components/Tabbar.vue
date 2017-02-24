@@ -31,6 +31,7 @@ export default {
 </script>
 
 <style lang="less">
+
   .weui_tabbar_icon {
     text-align: center;
 
