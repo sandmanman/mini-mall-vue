@@ -25,6 +25,13 @@ export default {
   components: {
     Tabbar,
     TabbarItem
+  },
+  watch: {
+    // 查询路由信息对象
+    // '$route' (to, from) {
+    //     console.log(to);
+    //     console.log(from);
+    // }
   }
 }
 
