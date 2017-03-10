@@ -12,7 +12,7 @@
 
 <script>
   export default {
-    name: 'HeaderbarCom'
+    name: 'appHeaderbar'
   }
 </script>
 
@@ -42,7 +42,7 @@
       top: 0;
 
       width: 55px;
-      height: 55px;
+      height: 100%;
 
       font-size: 26px;
       text-align: center;

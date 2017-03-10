@@ -1,0 +1,84 @@
+<template>
+  <flexbox :gutter="0" wrap="wrap">
+    <flexbox-item :span="1/2" v-for="item in productPreview">
+      <div class="product-card">
+        <a href="#">
+          <div class="product-cover-image" 
+          :style="{ backgroundImage: 'url(' + item.cover_image + ')' }"></div>
+          <h4 class="product-title">{{item.title}}</h4>
+          <p class="vendor-name">{{item.vendor.name}}</p>
+          <strong class="price">￥{{item.price}}</strong>
+          <span class="original-price">￥{{item.original_price}}</span>
+        </a>
+      </div>
+    </flexbox-item>
+  </flexbox>
+</template>
+
+<script>
+  import { Flexbox, FlexboxItem } from 'vux'
+
+  export default {
+    name: 'productPreview',
+    components: {
+      Flexbox,
+      FlexboxItem
+    },
+    props: {
+      shelfId: Number,
+      productPreview: Array
+    }
+  }
+</script>
+
+<style lang="less">
+  .product-card {
+    width: 100%;
+
+    color: #666;
+    font-size: 14px;
+
+    a {
+      display: block;
+      color: #666;
+    }
+    .product-cover-image {
+      position: relative;
+
+      width: 100%;
+      margin-bottom: 10px;
+      padding-bottom: 100%;
+
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+
+      &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+
+        background: rgba(0,0,0,.1);
+      }
+    }
+    .product-title {
+      display: flex;
+      height: 20px;
+      overflow: hidden;
+      line-height: 20px;
+      white-space: normal;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+    }
+    .original-price,
+    .vendor-name {
+      color: #bbb;
+    }
+    .original-price {
+      text-decoration: line-through;
+    }
+  }
+</style>

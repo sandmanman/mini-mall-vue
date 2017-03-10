@@ -18,7 +18,7 @@
       SwiperItem
     },
     props: {
-      bannerList: {}
+      bannerList: Array
     }
   }
 </script>

@@ -22,6 +22,7 @@
 import { Tabbar, TabbarItem } from 'vux'
 
 export default {
+  name: 'appTabbar',
   components: {
     Tabbar,
     TabbarItem

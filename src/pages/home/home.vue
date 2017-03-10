@@ -18,16 +18,19 @@
     </div>
     <!-- / 货架 End -->
 
-    <div class="weui-panel shelf-list-panel">
+    <div class="weui-panel product-preview-panel"
+      v-for="item in shelfList">
       <div class="weui-panel__bd">
         <div class="weui-media-box weui-media-box_text">
-          <h3 class="weui-media-box__title shelf-list-title">
-            <span class="text english">New Arrivals</span>
-            <span class="text chinese">新品上架</span>
+          <h3 class="weui-media-box__title product-preview-title">
+            <span class="text english">{{item.english_name}}</span>
+            <span class="text chinese">{{item.name}}</span>
           </h3>
-          
-
-
+          <div class="product-preview-list">
+            <product-preview 
+              v-bind:shelfId="item.id"
+              v-bind:productPreview="productPreview"></product-preview>
+          </div>
         </div>
       </div>
     </div>
@@ -36,42 +39,68 @@
 </template>
 
 <script>
-  import Banner from './_banner';
-  import Feature from './_feature';
-  import Shelf from './_shelf';
+  import banner from './_banner';
+  import feature from './_feature';
+  import shelf from './_shelf';
+
+  import productPreview from 'components/product-preview';
 
   import api from '../api/api-conf.js';
 
   export default {
     name: 'home',
     components: {
-      Banner,
-      Feature,
-      Shelf
+      banner,
+      feature,
+      shelf,
+      productPreview
     },
     data() {
       return {
-        bannerList: {},
-        featureList:{},
-        shelfList: {}
+        bannerList: [],
+        featureList:[],
+        shelfList: [],
+        productPreview: [],
+        shelfId: 12,
       }
     },
     created() {
-      // banner数据
-      this.$http.get(api.getBannerData()).then((res) => {
-          this.bannerList = res.data.objects;
-        });
+      
+    },
+    mounted() {
+      // banner
+      this.$http.get(api.getBanner())
+      .then((res) => {
+        this.bannerList = res.data.objects;
+      });
 
-      // 特色商品数据
-      this.$http.get(api.getFeatureData()).then((res) => {
-          this.featureList = res.data.objects;
-        });
+      // 特色商品
+      this.$http.get(api.getFeature())
+      .then((res) => {
+        this.featureList = res.data.objects;
+      });
         
-      // 类别数据
-      this.$http.get(api.getShelfData()).then((res) => {
-          this.shelfList = res.data.objects;
-        });
-        
+      // 商品类目
+      this.$http.get(api.getShelf())
+      .then((res) => {
+        this.shelfList = res.data.objects;
+      });
+
+      // 商品列
+      this.$http.get(api.getProductPreview(this.shelfId))
+      .then((res) => {
+        this.productPreview = res.data.objects;
+      });
+      
+    },
+    computed: {
+      // 计算
+    },
+    methods: {
+      // 方法
+    },
+    watch: {
+      // 监测
     }
   }
 </script>
@@ -120,7 +149,7 @@
     }
   }
 
-  .shelf-list-title {
+  .product-preview-title {
     display: inline-block;
     .english {
       font-size: 18px;
@@ -130,6 +159,17 @@
     .chinese {
       display: block;
       font-size: 14px;
+    }
+  }
+
+  .product-preview-list {
+    margin-right: -15px;
+
+    .product-card {
+      a {
+        margin-top: 20px;
+        margin-right: 15px;
+      }
     }
   }
   

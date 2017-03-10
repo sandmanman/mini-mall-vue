@@ -3,14 +3,14 @@
     <div class="page">
       <div class="page_bd">
 
-        <headerbar></headerbar>
+        <app-header></app-header>
 
         <div class="weui-tab">
           <div class="weui-tab__panel">
             <router-view></router-view>
           </div>
           
-          <tabbar-comp></tabbar-comp>
+          <app-tabbar></app-tabbar>
         </div>
 
       </div>
@@ -19,14 +19,14 @@
 </template>
 
 <script>
-  import Headerbar from './components/headerbar'
-  import TabbarComp from './components/tabbar'
+  import appHeader from 'components/headerbar'
+  import appTabbar from 'components/tabbar'
   
   export default {
     name: 'app',
     components: {
-      Headerbar,
-      TabbarComp
+      appHeader,
+      appTabbar
     },
     mounted() {
       // 设置 .weui-tab__panel 的 padding-top/bottom
@@ -74,13 +74,9 @@
     position: relative;
     height: 100%;
   }
-  
-  .weui-tab__panel {
-    box-sizing: border-box;
-    min-height: 100%;
-    padding-bottom: 50px;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
+
+  .weui-panel {
+    margin-bottom: 10px;
   }
 
 </style>

@@ -15,7 +15,7 @@
       GridItem
     },
     props: {
-      shelfList:{}
+      shelfList: Array
     },
     methods: {
       onItemClick () {

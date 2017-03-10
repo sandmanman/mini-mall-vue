@@ -18,7 +18,7 @@
       FlexboxItem
     },
     props: {
-      featureList:{}
+      featureList: Array
     }
   }
 </script>
