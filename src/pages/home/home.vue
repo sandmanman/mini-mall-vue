@@ -19,7 +19,8 @@
     <!-- / 货架 End -->
 
     <div class="weui-panel product-preview-panel"
-      v-for="item in shelfList">
+      v-for="item in shelfList" v-bind:key="item.id">
+
       <div class="weui-panel__bd">
         <div class="weui-media-box weui-media-box_text">
           <h3 class="weui-media-box__title product-preview-title">
@@ -27,45 +28,60 @@
             <span class="text chinese">{{item.name}}</span>
           </h3>
           <div class="product-preview-list">
-            <product-preview 
-              v-bind:shelfId="item.id"
-              v-bind:productPreview="productPreview"></product-preview>
+            
+            <flexbox :gutter="0" wrap="wrap">
+              <flexbox-item :span="1/2" v-for="item in productPreview">
+                <div class="product-card">
+                  <a href="#">
+                    <div class="product-cover-image" 
+                    :style="{ backgroundImage: 'url(' + item.cover_image + ')' }"></div>
+                    <h4 class="product-title">{{item.title}}</h4>
+                    <p class="vendor-name">{{item.vendor.name}}</p>
+                    <strong class="price">￥{{item.price}}</strong>
+                    <span class="original-price">￥{{item.original_price}}</span>
+                  </a>
+                </div>
+              </flexbox-item>
+            </flexbox>
+
           </div>
         </div>
       </div>
+
     </div>
 
   </div>
 </template>
 
 <script>
+  import { Flexbox, FlexboxItem } from 'vux';
+
   import banner from './_banner';
   import feature from './_feature';
   import shelf from './_shelf';
-
-  import productPreview from 'components/product-preview';
 
   import api from '../api/api-conf.js';
 
   export default {
     name: 'home',
     components: {
+      Flexbox,
+      FlexboxItem,
       banner,
       feature,
-      shelf,
-      productPreview
+      shelf
     },
     data() {
       return {
         bannerList: [],
         featureList:[],
         shelfList: [],
+        shelfId: [],
         productPreview: [],
-        shelfId: 12,
       }
     },
     created() {
-      
+
     },
     mounted() {
       // banner
@@ -84,12 +100,18 @@
       this.$http.get(api.getShelf())
       .then((res) => {
         this.shelfList = res.data.objects;
-      });
 
-      // 商品列
-      this.$http.get(api.getProductPreview(this.shelfId))
-      .then((res) => {
-        this.productPreview = res.data.objects;
+        var that = this;
+        if(res.status === 200) {
+          // 去获取对应id下的商品列
+          // 商品列
+          that.shelfList.forEach(function(item,index){
+            //console.log(item.id);
+            that.shelfId.push(item.id);
+          });
+
+          that.showProductPreview();
+        }
       });
       
     },
@@ -98,6 +120,18 @@
     },
     methods: {
       // 方法
+      showProductPreview: function() {
+        var that = this;
+        var shelfIdArray = this.shelfId;
+        var sid;
+        for(sid in shelfIdArray) {
+          that.$http.get(api.getProductPreview(shelfIdArray[sid]))
+          .then((res) => {
+            that.productPreview.push(res.data.objects);
+          });
+        }
+        
+      }
     },
     watch: {
       // 监测
@@ -106,6 +140,7 @@
 </script>
 
 <style lang="less">
+
   .feature-panel {
     overflow-x: auto;
     padding-left: 10px;
@@ -170,6 +205,56 @@
         margin-top: 20px;
         margin-right: 15px;
       }
+    }
+  }
+
+  .product-card {
+    width: 100%;
+
+    color: #666;
+    font-size: 14px;
+
+    a {
+      display: block;
+      color: #666;
+    }
+    .product-cover-image {
+      position: relative;
+
+      width: 100%;
+      margin-bottom: 10px;
+      padding-bottom: 100%;
+
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+
+      &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+
+        background: rgba(0,0,0,.1);
+      }
+    }
+    .product-title {
+      display: flex;
+      height: 20px;
+      overflow: hidden;
+      line-height: 20px;
+      white-space: normal;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+    }
+    .original-price,
+    .vendor-name {
+      color: #bbb;
+    }
+    .original-price {
+      text-decoration: line-through;
     }
   }
   
