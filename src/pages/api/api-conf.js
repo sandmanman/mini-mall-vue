@@ -14,7 +14,7 @@ export default {
   getShelf() { // 商品类目
     return BASE_URL + '/api/shelf/?limit=10&page=0&offset=0&img_size=small'
   },
-  getProductPreview(shelfId) { // 商品列
+  getProductList(shelfId) { // 商品列
     return BASE_URL + '/api/product_preview/?shelf__id='+shelfId+'&order_by=-priority&order_by=-id&limit=10&page=0&offset=0&img_size=small'
   },
   getshoppingCart() {

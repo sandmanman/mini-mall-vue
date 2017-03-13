@@ -1,6 +1,6 @@
 <template>
   <flexbox :gutter="0" wrap="wrap">
-    <flexbox-item :span="1/2" v-for="item in productPreview">
+    <flexbox-item :span="1/2" v-for="item in productList">
       <div class="product-card">
         <a href="#">
           <div class="product-cover-image" 
@@ -19,14 +19,14 @@
   import { Flexbox, FlexboxItem } from 'vux'
 
   export default {
-    name: 'productPreview',
+    name: 'products',
     components: {
       Flexbox,
       FlexboxItem
     },
     props: {
       shelfId: Number,
-      productPreview: Array
+      productList: Object
     }
   }
 </script>
