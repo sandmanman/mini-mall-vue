@@ -29,9 +29,7 @@
           </h3>
           <div class="product-preview-list">
             
-            <products
-            v-bind:shelf-id="item.id"
-            v-bind:product-list="productList"></products>
+            <products v-bind:shelf-id="item.id"></products>
 
           </div>
         </div>
@@ -48,7 +46,7 @@
   import shelf from './_shelf';
   import products from 'components/product-list';
 
-  import api from '../api/api-conf.js';
+  import api from 'src/pages/api/api-conf.js';
 
   export default {
     name: 'home',
@@ -63,60 +61,33 @@
         bannerList: [],
         featureList:[],
         shelfList: [],
-        shelfId: [],
-        productList: {},
       }
     },
     created() {
-
-    },
-    mounted() {
-      // banner
-      this.$http.get(api.getBanner())
-      .then((res) => {
-        this.bannerList = res.data.objects;
-      });
-
-      // 特色商品
-      this.$http.get(api.getFeature())
-      .then((res) => {
-        this.featureList = res.data.objects;
-      });
-        
-      // 商品类目
-      this.$http.get(api.getShelf())
-      .then((res) => {
-        this.shelfList = res.data.objects;
-
-        var that = this;
-        if(res.status === 200) {
-          // 去获取对应id下的商品列
-          // 商品列
-          var selfArr = that.shelfList;
-          var newArr = [];
-          for (let item in selfArr) {
-            if (selfArr.hasOwnProperty(item)) {
-              var sid = selfArr[item].id;
-              console.log(sid);
-              that.$http.get(api.getProductList(sid))
-              .then((res) => {
-                newArr.push(res.data.objects);
-              });
-            }
-          }
-          
-        }
-      });
-      
-    },
-    computed: {
-      // 计算
+      this.dataInit();
     },
     methods: {
       // 方法
-    },
-    watch: {
-      // 监测
+      dataInit() {
+        var _this = this;
+        // banner
+        _this.$http.get(api.getBanner())
+        .then((res) => {
+          _this.bannerList = res.data.objects;
+        });
+
+        // 特色商品
+        _this.$http.get(api.getFeature())
+        .then((res) => {
+          _this.featureList = res.data.objects;
+        });
+          
+        // 商品类目
+        _this.$http.get(api.getShelf())
+        .then((res) => {
+          _this.shelfList = res.data.objects;
+        });
+      }
     }
   }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <flexbox :gutter="0" wrap="wrap">
-    <flexbox-item :span="1/2" v-for="item in productList">
+    <flexbox-item :span="1/2" v-for="item in products" >
       <div class="product-card">
         <a href="#">
           <div class="product-cover-image" 
@@ -18,15 +18,37 @@
 <script>
   import { Flexbox, FlexboxItem } from 'vux'
 
+  import api from 'src/pages/api/api-conf.js';
+
   export default {
-    name: 'products',
+    name: 'productList',
     components: {
       Flexbox,
       FlexboxItem
     },
     props: {
-      shelfId: Number,
-      productList: Object
+      shelfId: {
+        type: Number,
+        required: !0
+      },
+      products: {
+        type: Array,
+        "default": function() {
+          return []
+        }
+      }
+    },
+    created() {
+      this.getProducts();
+    },
+    methods: {
+      getProducts() {
+        var _this = this;
+        _this.$http.get(api.getProductList(_this.shelfId))
+        .then((res) => {
+          _this.products = res.data.objects;
+        });
+      }
     }
   }
 </script>
