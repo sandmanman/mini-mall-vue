@@ -9,8 +9,9 @@
           <div class="weui-tab__panel">
             <router-view></router-view>
           </div>
-          
+
           <app-tabbar></app-tabbar>
+
         </div>
 
       </div>
@@ -36,8 +37,8 @@
           tabbarHeight = tabbarEle.offsetHeight,
           headerbarHeight = headerbarEle.offsetHeight;
           
-      panelEle.style.paddingTop = headerbarHeight + 'px';
-      panelEle.style.paddingBottom = tabbarHeight + 'px';
+      panelEle.style.marginTop = headerbarHeight + 'px';
+      panelEle.style.paddingBottom = tabbarHeight*2 + 'px';
     }
   }
 
@@ -73,6 +74,7 @@
   .weui-tab {
     position: relative;
     height: 100%;
+    overflow: hidden;
   }
 
   .weui-panel {

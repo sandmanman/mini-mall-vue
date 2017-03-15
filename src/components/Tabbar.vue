@@ -1,5 +1,4 @@
 <template>
-
   <tabbar>
     <tabbar-item :link="{name: 'home'}" :selected="$route.name === 'home'">
       <span slot="icon" class="icon-font icon-home ion-ios-home-outline"></span>
@@ -14,7 +13,6 @@
       <span slot="label">个人中心</span>
     </tabbar-item>
   </tabbar>
-
 </template>
 
 <script>
