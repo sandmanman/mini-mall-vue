@@ -30,12 +30,11 @@
       shelfId: {
         type: Number,
         required: !0
-      },
-      products: {
-        type: Array,
-        "default": function() {
-          return []
-        }
+      }
+    },
+    data() {
+      return {
+        products: []
       }
     },
     created() {
