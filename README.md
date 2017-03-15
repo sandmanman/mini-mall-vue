@@ -10,8 +10,16 @@
 - axios
 - LESS
 
+## Todo
+- <d>首页
+- <t>商品列表页...
+- <t>商品详细页
+- <t>购物车
+- <t>使用 LeanCloud 实现登录注册(是否可行)？
 
->[配置文件注释](http://www.qdfuns.com/notes/40585/9e2cd48b5ef2c1fc14118eabe67d11bc.html)
+
+
+[webpack 配置文件中文注释](http://www.qdfuns.com/notes/40585/9e2cd48b5ef2c1fc14118eabe67d11bc.html)
 
 ## Build Setup
 
