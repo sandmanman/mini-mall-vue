@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-axios.defaults.timeout = 1500
+axios.defaults.timeout = 100000
 
 // 状态码200判断
 axios.interceptors.response.use((res) => {
