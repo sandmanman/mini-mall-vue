@@ -1,12 +1,12 @@
 <template>
-  <div class="list-panel">
-    list
+  <div class="shelf-preview-panel">
+    类目列表
   </div>
 </template>
 
 <script>
   export default {
-    name: 'list'
+    name: 'shelfPreview'
   }
 </script>
 

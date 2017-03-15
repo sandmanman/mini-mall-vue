@@ -1,8 +1,13 @@
 <template>
   <grid>
-    <grid-item v-for="item in shelfList" :label="item.name" @on-item-click="onItemClick">
-      <img slot="icon" :src="item.cover_image">
-    </grid-item>
+      <grid-item 
+        v-for="item in shelfList"
+        :label="item.name"
+        :link="{ path: '/shelf?id='+item.id}">
+
+        <img slot="icon" :src="item.cover_image">
+
+      </grid-item>
   </grid>
 </template>
 
@@ -18,9 +23,9 @@
       shelfList: Array
     },
     methods: {
-      onItemClick () {
-        console.log('去产品列表')
-      }
+      // onItemClick () {
+      //   console.log('去产品列表')
+      // }
     }
   }
 </script>

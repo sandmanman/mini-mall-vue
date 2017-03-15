@@ -10,13 +10,13 @@
     </div>
     <!-- / 特色商品 End -->
 
-    <!-- 货架 S -->
+    <!-- 商品类目 S -->
     <div class="weui-panel shelf-panel">
       <div class="weui-panel__bd">
         <shelf v-bind:shelfList="shelfList"></shelf>
       </div>
     </div>
-    <!-- / 货架 End -->
+    <!-- / 商品类目 End -->
 
     <div class="weui-panel product-preview-panel"
       v-for="item in shelfList" v-bind:key="item.id">
