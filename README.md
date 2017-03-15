@@ -4,10 +4,14 @@
 
 
 ## 技术栈
-- Vue.js 2.0
+- Vue2
+- vue-router
 - Vux
 - axios
-- [配置文件注释](http://www.qdfuns.com/notes/40585/9e2cd48b5ef2c1fc14118eabe67d11bc.html)
+- SCSS
+
+
+>[配置文件注释](http://www.qdfuns.com/notes/40585/9e2cd48b5ef2c1fc14118eabe67d11bc.html)
 
 ## Build Setup
 

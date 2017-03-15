@@ -63,8 +63,26 @@
         shelfList: [],
       }
     },
+    beforeCreate() {
+      // 组件刚被创建，组件属性计算之前，如data属性
+      // 这里可以弄个loading
+    },
     created() {
+      // 实例创建完成之后的钩子函数
+      // 完成了 data 数据的初始化，el没有
+      // DOM还没完成，$el属性还不存在
+      // 这里也可先请求数据了 ajax
+      // 这里可以 结束loading，还做一些初始化，实现函数自执行
+      
       this.dataInit();
+    },
+    beforeMount() {
+      // 完成了 el 和 data 初始化
+    },
+    mounted() {
+      // 将编译好的HTML挂载到页面完成之后的钩子函数
+      // mounted 在整个实例生命内只执行一次
+
     },
     methods: {
       // 方法

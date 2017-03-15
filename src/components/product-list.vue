@@ -40,6 +40,9 @@
     created() {
       this.getProducts();
     },
+    mounted() {
+      
+    },
     methods: {
       getProducts() {
         var _this = this;
