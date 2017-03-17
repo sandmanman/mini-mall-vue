@@ -1,12 +1,24 @@
 <template>
   <div class="shelf-preview-panel">
-    类目列表
+    <products v-bind:shelf-id="16"></products>
   </div>
 </template>
 
 <script>
+  import products from 'components/product-list';
   export default {
-    name: 'shelfPreview'
+    name: 'shelfPreview',
+    components: {
+      products
+    },
+    data() {
+      return {
+        products: []
+      }
+    },
+    created() {
+
+    }
   }
 </script>
 
