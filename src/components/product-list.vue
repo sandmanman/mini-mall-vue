@@ -28,9 +28,10 @@
     },
     props: {
       shelfId: {
-        type: Number,
+        type: [Number,String],
         required: !0
-      }
+      },
+      limit: [Number,String]
     },
     data() {
       return {
@@ -46,7 +47,7 @@
     methods: {
       getProducts() {
         var _this = this;
-        _this.$http.get(api.getProductList(_this.shelfId))
+        _this.$http.get(api.getProductList(_this.shelfId, _this.limit))
         .then((res) => {
           _this.products = res.data.objects;
         });

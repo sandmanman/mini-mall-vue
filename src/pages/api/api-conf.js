@@ -11,11 +11,19 @@ export default {
   getFeature() { // 特色商品
     return BASE_URL + '/api/featured_merchandise/?limit=10&page=0&offset=0&img_size=small&platform=mobile'
   },
-  getShelf() { // 商品类目
+  getShelf() { // 商品类目列
     return BASE_URL + '/api/shelf/?limit=10&page=0&offset=0&img_size=small'
   },
-  getProductList(shelfId) { // 商品列
-    return BASE_URL + '/api/product_preview/?shelf__id='+shelfId+'&order_by=-priority&order_by=-id&limit=10&page=0&offset=0&img_size=small'
+  getShelfOnly(shelfId) { // 单个类目数据
+    return BASE_URL + '/api/shelf/'+shelfId+'/?&img_size=small'
+  },
+  getProductList(shelfId,limit) {
+    /**
+     * 商品列
+     * shelfId 类目id
+     * limit 初始显示个数
+     */
+    return BASE_URL + '/api/product_preview/?shelf__id='+shelfId+'&order_by=-priority&order_by=-id&limit='+limit+'&page=0&offset=0&img_size=small'
   },
   getshoppingCart() {
     return BASE_URL + '/api/shelf/shopping_cart/?limit=10&page=0&offset=0&img_size=small'

@@ -18,6 +18,7 @@
     </div>
     <!-- / 商品类目 End -->
 
+    <!-- 类目列 S -->
     <div class="weui-panel product-preview-panel"
       v-for="item in shelfList" v-bind:key="item.id">
 
@@ -29,13 +30,14 @@
           </h3>
           <div class="product-preview-list">
             
-            <products v-bind:shelf-id="item.id"></products>
+            <products v-bind:shelf-id="item.id" v-bind:limit="10"></products>
 
           </div>
         </div>
       </div>
 
     </div>
+    <!-- / 类目列 End -->
 
   </div>
 </template>

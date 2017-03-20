@@ -6,8 +6,10 @@ import Axios from './utils/axios-conf';
 import router from 'src/router/router';
 import App from './App';
 
+// axios
 Vue.prototype.$http = Axios;
 
+// fastclick
 FastClick.attach(document.body);
 
 /* eslint-disable no-new */
