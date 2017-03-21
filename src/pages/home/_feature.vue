@@ -9,20 +9,23 @@
 </template>
 
 <script>
-  import { Flexbox, FlexboxItem } from 'vux'
+    import {
+        Flexbox,
+        FlexboxItem
+    } from 'vux'
 
-  export default {
-    name: 'feature',
-    components: {
-      Flexbox,
-      FlexboxItem
-    },
-    props: {
-      featureList: Array
+    export default {
+        name: 'feature',
+        components: {
+            Flexbox,
+            FlexboxItem
+        },
+        props: {
+            featureList: Array
+        }
     }
-  }
 </script>
 
 <style lang="less" scoped>
-  
+
 </style>

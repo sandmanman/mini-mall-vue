@@ -43,143 +43,136 @@
 </template>
 
 <script>
-  import banner from './_banner';
-  import feature from './_feature';
-  import shelf from './_shelf';
-  import products from 'components/product-list';
+    import banner from './_banner';
+    import feature from './_feature';
+    import shelf from './_shelf';
+    import products from 'components/product-list';
 
-  import api from 'src/pages/api/api-conf.js';
+    import api from 'src/pages/api/api-conf.js';
 
-  export default {
-    name: 'home',
-    components: {
-      banner,
-      feature,
-      shelf,
-      products
-    },
-    data() {
-      return {
-        bannerList: [],
-        featureList:[],
-        shelfList: [],
-      }
-    },
-    beforeCreate() {
-      // 组件刚被创建，组件属性计算之前，如data属性
-      // 这里可以弄个loading
-    },
-    created() {
-      // 实例创建完成之后的钩子函数
-      // 完成了 data 数据的初始化，el没有
-      // DOM还没完成，$el属性还不存在
-      // 这里也可先请求数据了 ajax
-      // 这里可以 结束loading，还做一些初始化，实现函数自执行
-      
-      this.dataInit();
-    },
-    beforeMount() {
-      // 完成了 el 和 data 初始化
-    },
-    mounted() {
-      // 将编译好的HTML挂载到页面完成之后的钩子函数
-      // mounted 在整个实例生命内只执行一次
+    export default {
+        name: 'home',
+        components: {
+            banner,
+            feature,
+            shelf,
+            products
+        },
+        data() {
+            return {
+                bannerList: [],
+                featureList: [],
+                shelfList: [],
+            }
+        },
+        beforeCreate() {
+            // 组件刚被创建，组件属性计算之前，如data属性
+            // 这里可以弄个loading
+        },
+        created() {
+            // 实例创建完成之后的钩子函数
+            // 完成了 data 数据的初始化，el没有
+            // DOM还没完成，$el属性还不存在
+            // 这里也可先请求数据了 ajax
+            // 这里可以 结束loading，还做一些初始化，实现函数自执行
 
-    },
-    methods: {
-      // 方法
-      dataInit() {
-        var _this = this;
-        // banner
-        _this.$http.get(api.getBanner())
-        .then((res) => {
-          _this.bannerList = res.data.objects;
-        });
+            this.dataInit();
+        },
+        beforeMount() {
+            // 完成了 el 和 data 初始化
+        },
+        mounted() {
+            // 将编译好的HTML挂载到页面完成之后的钩子函数
+            // mounted 在整个实例生命内只执行一次
 
-        // 特色商品
-        _this.$http.get(api.getFeature())
-        .then((res) => {
-          _this.featureList = res.data.objects;
-        });
-          
-        // 商品类目
-        _this.$http.get(api.getShelf())
-        .then((res) => {
-          _this.shelfList = res.data.objects;
-        });
-      }
+        },
+        methods: {
+            // 方法
+            dataInit() {
+                var _this = this;
+                // banner
+                _this.$http.get(api.getBanner())
+                    .then((res) => {
+                        _this.bannerList = res.data.objects;
+                    });
+
+                // 特色商品
+                _this.$http.get(api.getFeature())
+                    .then((res) => {
+                        _this.featureList = res.data.objects;
+                    });
+
+                // 商品类目
+                _this.$http.get(api.getShelf())
+                    .then((res) => {
+                        _this.shelfList = res.data.objects;
+                    });
+            }
+        }
     }
-  }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less">
-
-  .feature-panel {
-    overflow-x: auto;
-    padding-left: 10px;
-
-    .vux-flexbox .vux-flexbox-item {
-      min-width: 250px;
-      a {
-        display: block;
-        width: 100%;
-        height: 134px;
-        background-position: 50%;
-        background-repeat: no-repeat;
-        background-size: cover;
-      }
-    }
-  }
-
-  .shelf-panel {
-    .weui-grid {
-      padding-top: 15px;
-      padding-bottom: 15px;
-      width: 25%;
-
-      &:before,
-      &:after {
-        display: none;
-      }
-
-      .weui-grid__label {
-        font-size: 12px;
-      }
+    .feature-panel {
+        overflow-x: auto;
+        padding-left: 10px;
+        .vux-flexbox .vux-flexbox-item {
+            min-width: 250px;
+            a {
+                display: block;
+                width: 100%;
+                height: 134px;
+                background-position: 50%;
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+        }
     }
 
-    .weui-grid .weui-grid__icon {
-      width: 65px;
-      height: 65px;
-      img {
-        border: 1px solid #d9d9d9;
-        border-radius: 1000px;
-      }
+    .shelf-panel {
+        .weui-grid {
+            padding-top: 15px;
+            padding-bottom: 15px;
+            width: 25%;
+            &:before,
+            &:after {
+                display: none;
+            }
+            .weui-grid__label {
+                font-size: 12px;
+            }
+        }
+        .weui-grid .weui-grid__icon {
+            width: 65px;
+            height: 65px;
+            img {
+                border: 1px solid #d9d9d9;
+                border-radius: 1000px;
+            }
+        }
     }
-  }
 
-  .product-preview-title {
-    display: inline-block;
-    .english {
-      font-size: 18px;
-      font-weight: 700;
-      border-bottom: 2px solid #000;
+    .product-preview-title {
+        display: inline-block;
+        .english {
+            font-size: 18px;
+            font-weight: 700;
+            border-bottom: 2px solid #000;
+        }
+        .chinese {
+            display: block;
+            font-size: 14px;
+        }
     }
-    .chinese {
-      display: block;
-      font-size: 14px;
-    }
-  }
 
-  .product-preview-list {
-    margin-right: -15px;
-
-    .product-card {
-      a {
-        margin-top: 20px;
-        margin-right: 15px;
-      }
+    .product-preview-list {
+        margin-right: -15px;
+        .product-card {
+            a {
+                margin-top: 20px;
+                margin-right: 15px;
+            }
+        }
     }
-  }
-  
 </style>

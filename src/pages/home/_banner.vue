@@ -9,26 +9,30 @@
 </template>
 
 <script>
-  import { Swiper, SwiperItem } from 'vux';
+    import {
+        Swiper,
+        SwiperItem
+    } from 'vux';
 
-  export default {
-    name: 'banner',
-    components: {
-      Swiper,
-      SwiperItem
-    },
-    props: {
-      bannerList: Array
+    export default {
+        name: 'banner',
+        components: {
+            Swiper,
+            SwiperItem
+        },
+        props: {
+            bannerList: Array
+        }
     }
-  }
 </script>
 
 <style lang="less">
-  .banner-wrap img {
-    max-width: 100%;
-  }
-  .vux-slider > .vux-indicator > a > .vux-icon-dot.active,
-  .vux-slider .vux-indicator-right > a > .vux-icon-dot.active {
-    background-color: #000;
-  }
+    .banner-wrap img {
+        max-width: 100%;
+    }
+
+    .vux-slider>.vux-indicator>a>.vux-icon-dot.active,
+    .vux-slider .vux-indicator-right>a>.vux-icon-dot.active {
+        background-color: #000;
+    }
 </style>

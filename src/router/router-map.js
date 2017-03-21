@@ -10,23 +10,23 @@ import UserCenter from 'pages/user/user-center.vue';
 
 export default [{
     path: '/',
-    name: 'index',
-    component: Home
-  },{
+    redirect() {
+        return 'home'
+    }
+}, {
     path: '/home',
     name: 'home',
     component: Home
-  },{
+}, {
     path: '/shelf',
     name: 'shelfPreview',
     component: shelfPreview
-  },{
+}, {
     path: '/cart',
     name: 'cart',
     component: Cart
-  },{
+}, {
     path: '/userCenter',
     name: 'userCenter',
     component: UserCenter
-  }
-]
+}]

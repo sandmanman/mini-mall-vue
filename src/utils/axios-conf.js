@@ -4,11 +4,11 @@ axios.defaults.timeout = 100000
 
 // 状态码200判断
 axios.interceptors.response.use((res) => {
-  if (res.status !== 200) {
-    return Promise.reject(res)
-  }
-  return res
+    if (res.status !== 200) {
+        return Promise.reject(res)
+    }
+    return res
 }, (error) => {
-  return Promise.reject(error)
+    return Promise.reject(error)
 })
 export default axios

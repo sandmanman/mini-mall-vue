@@ -16,94 +16,91 @@
 </template>
 
 <script>
-  import { Flexbox, FlexboxItem } from 'vux'
+    import {
+        Flexbox,
+        FlexboxItem
+    } from 'vux'
 
-  import api from 'src/pages/api/api-conf.js';
+    import api from 'src/pages/api/api-conf.js';
 
-  export default {
-    name: 'productList',
-    components: {
-      Flexbox,
-      FlexboxItem
-    },
-    props: {
-      shelfId: {
-        type: [Number,String],
-        required: !0
-      },
-      limit: [Number,String]
-    },
-    data() {
-      return {
-        products: []
-      }
-    },
-    created() {
-      this.getProducts();
-    },
-    mounted() {
-      
-    },
-    methods: {
-      getProducts() {
-        var _this = this;
-        _this.$http.get(api.getProductList(_this.shelfId, _this.limit))
-        .then((res) => {
-          _this.products = res.data.objects;
-        });
-      }
+    export default {
+        name: 'productList',
+        components: {
+            Flexbox,
+            FlexboxItem
+        },
+        props: {
+            shelfId: {
+                type: [Number, String],
+                required: !0
+            },
+            limit: [Number, String]
+        },
+        data() {
+            return {
+                products: []
+            }
+        },
+        created() {
+            this.getProducts();
+        },
+        mounted() {
+
+        },
+        methods: {
+            getProducts() {
+                var _this = this;
+                _this.$http.get(api.getProductList(_this.shelfId, _this.limit))
+                    .then((res) => {
+                        _this.products = res.data.objects;
+                    });
+            }
+        }
     }
-  }
 </script>
 
 <style lang="less">
-  .product-card {
-    width: 100%;
-
-    color: #666;
-    font-size: 14px;
-
-    a {
-      display: block;
-      color: #666;
-    }
-    .product-cover-image {
-      position: relative;
-
-      width: 100%;
-      margin-bottom: 10px;
-      padding-bottom: 100%;
-
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-
-      &:before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
+    .product-card {
         width: 100%;
-        height: 100%;
-
-        background: rgba(0,0,0,.1);
-      }
+        color: #666;
+        font-size: 14px;
+        a {
+            display: block;
+            color: #666;
+        }
+        .product-cover-image {
+            position: relative;
+            width: 100%;
+            margin-bottom: 10px;
+            padding-bottom: 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            &:before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, .1);
+            }
+        }
+        .product-title {
+            display: flex;
+            height: 20px;
+            overflow: hidden;
+            line-height: 20px;
+            white-space: normal;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+        }
+        .original-price,
+        .vendor-name {
+            color: #bbb;
+        }
+        .original-price {
+            text-decoration: line-through;
+        }
     }
-    .product-title {
-      display: flex;
-      height: 20px;
-      overflow: hidden;
-      line-height: 20px;
-      white-space: normal;
-      -webkit-line-clamp: 1;
-      -webkit-box-orient: vertical;
-    }
-    .original-price,
-    .vendor-name {
-      color: #bbb;
-    }
-    .original-price {
-      text-decoration: line-through;
-    }
-  }
 </style>

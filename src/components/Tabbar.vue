@@ -16,64 +16,63 @@
 </template>
 
 <script>
+    import {
+        Tabbar,
+        TabbarItem
+    } from 'vux'
 
-import { Tabbar, TabbarItem } from 'vux'
-
-export default {
-  name: 'appTabbar',
-  components: {
-    Tabbar,
-    TabbarItem
-  },
-  watch: {
-    // 查询路由信息对象
-    // '$route' (to, from) {
-    //     console.log(to);
-    //     console.log(from);
-    // }
-  }
-}
-
+    export default {
+        name: 'appTabbar',
+        components: {
+            Tabbar,
+            TabbarItem
+        },
+        watch: {
+            // 查询路由信息对象
+            // '$route' (to, from) {
+            //     console.log(to);
+            //     console.log(from);
+            // }
+        }
+    }
 </script>
 
 <style lang="less">
+    .weui_tabbar_icon {
+        text-align: center;
+        >.icon-font {
+            position: relative;
+            top: -1px;
+            vertical-align: top;
+            color: #888;
+            font-size: 26px;
+            &:before {
+                line-height: normal;
+            }
+        }
+    }
 
-  .weui_tabbar_icon {
-    text-align: center;
+    .weui_tabbar_item:last-child {
+        .weui_tabbar_icon>.icon-font {
+            top: -3px;
+            font-size: 31px;
+        }
+    }
+    /*active icon style*/
 
-    > .icon-font {
-      position: relative;
-      top: -1px;
-      vertical-align: top;
-
-      color: #888;
-      font-size: 26px;
-      &:before {
-        line-height: normal;
-      }
+    .weui_tabbar_item.weui_bar_item_on {
+        .weui_tabbar_label,
+        .icon-font {
+            color: #000 !important;
+        }
+        .icon-home:before {
+            content: "\f448";
+        }
+        .icon-cart:before {
+            content: "\f3f8";
+        }
+        .icon-user:before {
+            content: "\f47e";
+        }
     }
-  }
-  .weui_tabbar_item:last-child {
-    .weui_tabbar_icon > .icon-font {
-      top: -3px;
-      font-size: 31px;
-    }
-  }
-
-  /*active icon style*/
-  .weui_tabbar_item.weui_bar_item_on {
-    .weui_tabbar_label,
-    .icon-font {
-      color: #000 !important;
-    }
-    .icon-home:before {
-      content: "\f448";
-    }
-    .icon-cart:before {
-      content: "\f3f8";
-    }
-    .icon-user:before {
-      content: "\f47e";
-    }
-  }
 </style>

@@ -12,24 +12,27 @@
 </template>
 
 <script>
-  import { Grid, GridItem } from 'vux';
-  export default {
-    name: 'shelf',
-    components: {
-      Grid,
-      GridItem
-    },
-    props: {
-      shelfList: Array
-    },
-    methods: {
-      // onItemClick () {
-      //   console.log('去产品列表')
-      // }
+    import {
+        Grid,
+        GridItem
+    } from 'vux';
+    export default {
+        name: 'shelf',
+        components: {
+            Grid,
+            GridItem
+        },
+        props: {
+            shelfList: Array
+        },
+        methods: {
+            // onItemClick () {
+            //   console.log('去产品列表')
+            // }
+        }
     }
-  }
 </script>
 
 <style lang="less">
-  
+
 </style>
