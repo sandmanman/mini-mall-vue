@@ -4,9 +4,7 @@
 
     <!-- 特色商品 S -->
     <div class="weui-panel feature-panel">
-      <div class="weui-panel__bd">
         <feature v-bind:featureList="featureList"></feature>
-      </div>
     </div>
     <!-- / 特色商品 End -->
 

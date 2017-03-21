@@ -42,7 +42,11 @@ body {
 // home feature
 .feature-panel {
     overflow-x: auto;
-    padding-left: 10px;
+    margin-left: 10px;
+    &:before,
+    &:after {
+        display: none;
+    }
     .vux-flexbox .vux-flexbox-item {
         min-width: 250px;
         a {
