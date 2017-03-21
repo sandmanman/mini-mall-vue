@@ -31,7 +31,7 @@ export default {
     },
     getProduct(productId) {
         // 商品信息
-        return BASE_URL + 'api/v1.4/product/' + productId + '/?img_size=medium';
+        return BASE_URL + '/api/product/' + productId + '/?img_size=medium';
     },
     getShoppingCart() {
         return BASE_URL + '/api/shelf/shopping_cart/?limit=10&page=0&offset=0&img_size=small'
