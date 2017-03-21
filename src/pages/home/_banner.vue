@@ -1,5 +1,5 @@
 <template>
-  <div class="banner-wrap">
+  <div class="swiper-wrap">
     <swiper auto :aspect-ratio="470/800" :show-dots="false" dots-position="center">
       <swiper-item v-for="item in bannerList">
         <img :src="item.image">
@@ -27,7 +27,7 @@
 </script>
 
 <style lang="less">
-    .banner-wrap img {
+    .swiper-wrap img {
         max-width: 100%;
     }
 
