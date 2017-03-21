@@ -8,7 +8,7 @@
       </h1>
     </div>
     <div class="weui-panel__bd">
-      <div class="weui-media-box weui-media-box_text">
+      <div class="weui-media-box">
         <div class="product-preview-list">
           
           <products v-bind:shelf-id="shelfId" v-bind:limit="limit"></products>
@@ -58,11 +58,12 @@
     }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
     .weui-panel__hd {
         display: table;
         width: 100%;
         min-height: 220px;
+        padding: 0;
         text-align: center;
         background-repeat: no-repeat;
         background-position: top center;
@@ -94,16 +95,6 @@
             bottom: 0;
             left: 0;
             background: rgba(0, 0, 0, .25);
-        }
-    }
-
-    .product-preview-list {
-        margin-right: -15px;
-        .product-card {
-            a {
-                margin-top: 0;
-                margin-right: 15px;
-            }
         }
     }
 </style>
