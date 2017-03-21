@@ -1,15 +1,15 @@
 <template>
   <flexbox :gutter="0" wrap="wrap">
-    <flexbox-item :span="1/2" v-for="item in products" >
+    <flexbox-item :span="1/2" v-for="item in products">
       <div class="product-card">
-        <a href="#">
+        <router-link :to="{ name: 'product', params: { id: item.id }}">
           <div class="product-cover-image" 
           :style="{ backgroundImage: 'url(' + item.cover_image + ')' }"></div>
           <h4 class="product-title">{{item.title}}</h4>
           <p class="vendor-name">{{item.vendor.name}}</p>
           <strong class="price">￥{{item.price}}</strong>
           <span class="original-price">￥{{item.original_price}}</span>
-        </a>
+        </router-link>
       </div>
     </flexbox-item>
   </flexbox>

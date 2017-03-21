@@ -4,6 +4,7 @@
 
 import Home from 'pages/home/home.vue';
 import shelfProductPreview from 'pages/shelf/shelf.vue';
+import product from 'pages/product/product.vue';
 import Cart from 'pages/cart/cart.vue';
 import UserCenter from 'pages/user/user-center.vue';
 
@@ -18,9 +19,13 @@ export default [{
     name: 'home',
     component: Home
 }, {
-    path: '/shelf',
+    path: '/shelf/:id',
     name: 'shelfProductPreview',
     component: shelfProductPreview
+}, {
+    path: '/product/:id',
+    name: 'product',
+    component: product
 }, {
     path: '/cart',
     name: 'cart',

@@ -3,7 +3,7 @@
       <grid-item 
         v-for="item in shelfList"
         :label="item.name"
-        :link="{ path: '/shelf?id='+item.id}">
+        :link="{ name: 'shelfProductPreview', params: { id: item.id }}">
 
         <img slot="icon" :src="item.cover_image">
 

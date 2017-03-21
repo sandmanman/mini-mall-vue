@@ -45,13 +45,12 @@
         },
         methods: {
             getShelfId() {
-                return this.shelfId = this.$route.query.id;
+                return this.shelfId = this.$route.params.id;
             },
             getShelfCurrent(shelfId) {
                 this.$http.get(api.getShelfOnly(shelfId))
                     .then((res) => {
                         this.shelfCurrent = res.data;
-                        console.log(this.shelfCurrent)
                     });
             }
         }
