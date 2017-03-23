@@ -4,7 +4,7 @@
       <span slot="icon" class="icon-font icon-home ion-ios-home-outline"></span>
       <span slot="label">首页</span>
     </tabbar-item>
-    <tabbar-item :link="{name: 'cart'}" :selected="$route.name === 'cart'" badge="2">
+    <tabbar-item :link="{name: 'cart'}" :selected="$route.name === 'cart'" badge="0">
       <span slot="icon" class="icon-font icon-cart ion-ios-cart-outline"></span>
       <span slot="label">购物车</span>
     </tabbar-item>
@@ -26,6 +26,12 @@
         components: {
             Tabbar,
             TabbarItem
+        },
+        props: {
+            shoppingCartCount: {
+                type: [Number, String],
+                default: null
+            }
         },
         watch: {
             // 查询路由信息对象
