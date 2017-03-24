@@ -19,8 +19,9 @@
 - [ ] 使用 LeanCloud 实现登录注册(是否可行)？
 
 
-
-[webpack 配置文件中文注释](http://www.qdfuns.com/notes/40585/9e2cd48b5ef2c1fc14118eabe67d11bc.html)
+## 资料
+- [webpack 配置文件中文注释](http://www.qdfuns.com/notes/40585/9e2cd48b5ef2c1fc14118eabe67d11bc.html)
+- [vue-cli#2.0 webpack 配置分析](https://juejin.im/post/584e48b2ac502e006c74a120)
 
 ## Build Setup
 

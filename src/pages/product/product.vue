@@ -13,6 +13,7 @@
                 <div class="weui-media-box weui-media-box_text">
                     <h1 class="weui-media-box__title title">{{product.title}}</h1>
                     <strong class="price">￥{{product.price}}</strong>
+                    <span class="original-price" v-if="product.price !== product.original_price">￥{{product.original_price}}</span>
                     <p class="weui-media-box__desc summary">{{product.summary}}</p>
                 </div>
                 <div class="weui-media-box" style="padding-bottom:0;">
@@ -34,35 +35,34 @@
             </div>
         </div>
 
-        <!-- 商品详细信息 -->
-        <tab active-color="#000" defaultColor="#666" :line-width="2" v-model="index">
-            <tab-item 
-                :selected="tabActive === index"
-                v-for="(item, index) in tabList"
-                @click="tabActive = index"
-                :key="index">
-                
-                {{item}}
-                
-            </tab-item>
-        </tab>
-        <div class="detail-panel" v-model="index">
-            <div class="weui-panel product-detail-panel">
-                <div class="weui-panel__bd">
-                    <div class="weui-panel__bd">
-                        <div class="weui-media-box" :key="index" v-show="true">
-                            <div class="description" v-html="product.description"></div>
+        <!-- 商品详细信息 S -->
+        <div class="weui-panel product-detail-panel">
+            <div class="weui-panel__bd">
+                <tabs>
+                    <tab-item name="description" title="细节描述" active='true'>
+                        <div class="weui-media-box description">
+                            <div v-html="description"></div>
                         </div>
-                        <div class="weui-media-box" :key="index" v-show="false">
-                            {{product.attributes}}
+                    </tab-item>
+                    <tab-item name="attributes" title="规格参数">
+                        <div class="weui-media-box attributes-list">
+                            <p v-for="item in attributes">
+                                <span class="key">{{item.key}}：</span>
+                                <span class="value">{{item.value}}</span>
+                            </p>
                         </div>
-                        <div class="weui-media-box" :key="index" v-show="false">
-                            
+                    </tab-item>
+                    <tab-item name="vendor" title="品牌介绍">
+                        <div class="weui-media-box vendor">
+                            <span class="vendor-logo" :style="{ backgroundImage: 'url(' + vendor.logo + ')' }"></span>
+                            <h4 class="vendor-name">{{vendor.name}}</h4>
+                            <p class="vendor-summary">{{vendor.description}}</p>
                         </div>
-                    </div>
-                </div>
+                    </tab-item>
+                </tabs>
             </div>
         </div>
+        <!-- 商品详细信息 End -->
     </div>
 </template>
 
@@ -72,10 +72,11 @@
         SwiperItem,
         Flexbox,
         FlexboxItem,
-        XButton,
-        Tab,
-        TabItem
+        XButton
     } from 'vux';
+
+    import Tabs from 'components/Tabs.vue';
+    import TabItem from 'components/TabItem.vue';
 
     import api from 'src/pages/api/api-conf.js';
 
@@ -87,18 +88,18 @@
             Flexbox,
             FlexboxItem,
             XButton,
-            Tab,
+            Tabs,
             TabItem
         },
         data() {
             return {
                 productId: null,
                 product: [],
+                description: [],
+                attributes: [],
+                vendor: [],
                 isLike: false,
-                likeCount: 0,
-                tabList: ['细节描述', '规格参数', '品牌介绍'],
-                tabActive: '细节描述',
-                index: 0
+                likeCount: 0
             }
         },
         created() {
@@ -110,9 +111,15 @@
                 return this.productId = this.$route.params.id;
             },
             getProduct(productId) {
-                this.$http.get(api.getProduct(productId))
+                
+                let pid = productId;
+                console.log('product ID: '+pid)
+                this.$http.get(api.getProduct(pid))
                     .then((res) => {
                         this.product = res.data;
+                        this.description = res.data.description;
+                        this.attributes = res.data.attributes;
+                        this.vendor = res.data.vendor;
                     });
             },
             likeit() {
@@ -160,8 +167,31 @@
     .vux-flexbox-item {
         text-align: center;
     }
-
-    .weui-media-box img {
-        width: 100%;
+    
+    .attributes-list > p {
+        margin-bottom: 10px;
     }
+    .attributes-list .value {
+        color: #707070;
+    }
+    .vendor-logo {
+        display: inline-block;
+        margin-right: 10px;
+        width: 64px;
+        height: 64px;
+        vertical-align: top;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+    .vendor-name {
+        display: inline-block;
+        vertical-align: top;
+        margin-top: 20px;
+        font-size: 16px;
+    }
+    .vendor-summary {
+        color: #707070;
+    }
+    
 </style>

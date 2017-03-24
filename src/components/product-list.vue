@@ -8,7 +8,7 @@
           <h4 class="product-title">{{item.title}}</h4>
           <p class="vendor-name">{{item.vendor.name}}</p>
           <strong class="price">￥{{item.price}}</strong>
-          <span class="original-price">￥{{item.original_price}}</span>
+          <span class="original-price" v-if="item.price !== item.original_price">￥{{item.original_price}}</span>
         </router-link>
       </div>
     </flexbox-item>
@@ -19,7 +19,7 @@
     import {
         Flexbox,
         FlexboxItem
-    } from 'vux'
+    } from 'vux';
 
     import api from 'src/pages/api/api-conf.js';
 
