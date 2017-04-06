@@ -1,44 +1,24 @@
 <template>
-  <div class="container">
-    <div class="page">
-      <div class="page_bd">
+    <div class="container">
 
-        <app-header></app-header>
-
-        <div class="weui-tab">
-          <div class="weui-tab__panel">
-            <router-view></router-view>
-          </div>
-
-          <app-tabbar></app-tabbar>
-
-        </div>
-
-      </div>
+        <app-headerbar></app-headerbar>
+    
+        <router-view></router-view>
+    
+        <app-tabbar v-if=" this.$route.name !== 'product' "></app-tabbar>
+    
     </div>
-  </div>
 </template>
 
 <script>
-    import appHeader from 'components/headerbar'
+    import appHeaderbar from 'components/headerbar'
     import appTabbar from 'components/tabbar'
-
+    
     export default {
         name: 'app',
         components: {
-            appHeader,
+            appHeaderbar,
             appTabbar
-        },
-        mounted() {
-            // 设置 .weui-tab__panel 的 padding-top/bottom
-            var tabbarEle = document.querySelector('.weui_tabbar'),
-                headerbarEle = document.querySelector('.headerbar'),
-                panelEle = document.querySelector('.weui-tab__panel'),
-                tabbarHeight = tabbarEle.offsetHeight,
-                headerbarHeight = headerbarEle.offsetHeight;
-
-            panelEle.style.marginTop = headerbarHeight + 'px';
-            panelEle.style.paddingBottom = tabbarHeight * 2 + 'px';
         }
     }
 </script>

@@ -1,43 +1,47 @@
 <template>
-  <div class="home-panel">
-    <banner v-bind:bannerList="bannerList"></banner>
+    <div class="page">
+        <div class="page_bd">
+            <div class="weui-tab">
+                <div class="weui-tab__panel">
+                    <div class="home-panel">
 
-    <!-- 特色商品 S -->
-    <div class="weui-panel feature-panel">
-        <feature v-bind:featureList="featureList"></feature>
+                        <banner v-bind:bannerList="bannerList"></banner>
+
+                        <!-- 特色商品 S -->
+                        <div class="weui-panel feature-panel">
+                            <feature v-bind:featureList="featureList"></feature>
+                        </div>    
+                        <!-- / 特色商品 End -->
+       
+                        <!-- 商品类目 S -->
+                        <div class="weui-panel shelf-panel">
+                            <div class="weui-panel__bd">
+                                <shelf v-bind:shelfList="shelfList"></shelf>
+                            </div>
+                        </div>
+                        <!-- / 商品类目 End -->
+
+                        <!-- 类目列 S -->
+                        <div class="weui-panel product-preview-panel" v-for="item in shelfList" v-bind:key="item.id">    
+                            <div class="weui-panel__bd">   
+                                <div class="weui-media-box weui-media-box_text">   
+                                    <h3 class="weui-media-box__title product-preview-title"> 
+                                        <span class="text english">{{item.english_name}}</span>
+                                        <span class="text chinese">{{item.name}}</span>  
+                                    </h3>
+                                    <div class="product-preview-list">
+                                        <products v-bind:shelf-id="item.id" v-bind:limit="10"></products>   
+                                    </div>
+                               </div>   
+                            </div>
+                        </div>
+                        <!-- / 类目列 End -->
+
+                    </div>   
+                </div>   
+            </div>   
+        </div>    
     </div>
-    <!-- / 特色商品 End -->
-
-    <!-- 商品类目 S -->
-    <div class="weui-panel shelf-panel">
-      <div class="weui-panel__bd">
-        <shelf v-bind:shelfList="shelfList"></shelf>
-      </div>
-    </div>
-    <!-- / 商品类目 End -->
-
-    <!-- 类目列 S -->
-    <div class="weui-panel product-preview-panel"
-      v-for="item in shelfList" v-bind:key="item.id">
-
-      <div class="weui-panel__bd">
-        <div class="weui-media-box weui-media-box_text">
-          <h3 class="weui-media-box__title product-preview-title">
-            <span class="text english">{{item.english_name}}</span>
-            <span class="text chinese">{{item.name}}</span>
-          </h3>
-          <div class="product-preview-list">
-            
-            <products v-bind:shelf-id="item.id" v-bind:limit="10"></products>
-
-          </div>
-        </div>
-      </div>
-
-    </div>
-    <!-- / 类目列 End -->
-
-  </div>
 </template>
 
 <script>
@@ -45,7 +49,6 @@
     import feature from './_feature';
     import shelf from './_shelf';
     import products from 'components/product-list';
-
     import api from 'src/pages/api/api-conf.js';
 
     export default {
@@ -112,5 +115,5 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less">
-    
+
 </style>

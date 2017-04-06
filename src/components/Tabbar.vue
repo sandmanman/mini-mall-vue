@@ -1,5 +1,5 @@
 <template>
-  <tabbar>
+  <tabbar class="app-tabbar">
     <tabbar-item :link="{name: 'home'}" :selected="$route.name === 'home'">
       <span slot="icon" class="icon-font icon-home ion-ios-home-outline"></span>
       <span slot="label">首页</span>

@@ -1,8 +1,6 @@
 <template>
-  <div class="headerbar">
+  <div class="app-headerbar">
     <span class="logo">玩物店</span>
-
-
 
     <span class="search-act">
       <i class="icon-font ion-ios-search"></i>
@@ -17,7 +15,7 @@
 </script>
 
 <style lang="less">
-    .headerbar {
+    .app-headerbar {
         position: absolute;
         left: 0;
         top: 0;

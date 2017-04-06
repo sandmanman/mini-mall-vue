@@ -1,22 +1,31 @@
 <template>
-  <div class="weui-panel shelf-preview-panel">
-    <div class="weui-panel__hd"
-      :style="{ backgroundImage: 'url(' + shelfCurrent.background_image + ')' }">
-      <h1>
-        <span class="text english">{{shelfCurrent.english_name}}</span>
-        <span class="text chinese">{{shelfCurrent.name}}</span>
-      </h1>
-    </div>
-    <div class="weui-panel__bd">
-      <div class="weui-media-box">
-        <div class="product-preview-list">
-          
-          <products v-bind:shelf-id="shelfId" v-bind:limit="limit"></products>
+    <div class="page">
+        <div class="page_bd">
+            <div class="weui-tab">
+                <div class="weui-tab__panel">
+                    <div class="weui-panel shelf-preview-panel">
+                        <div class="weui-panel__hd"
+                        :style="{ backgroundImage: 'url(' + shelfCurrent.background_image + ')' }">
+                            <h1>
+                                <span class="text english">{{shelfCurrent.english_name}}</span>
+                                <span class="text chinese">{{shelfCurrent.name}}</span>
+                            </h1>
+                        </div>
 
+                        <div class="weui-panel__bd">
+                            <div class="weui-media-box">
+                                <div class="product-preview-list">
+                                
+                                    <products v-bind:shelf-id="shelfId" v-bind:limit="limit"></products>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </template>
 
 <script>

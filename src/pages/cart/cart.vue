@@ -1,6 +1,12 @@
 <template>
-  <div>
-    购物车
+  <div class="page">
+    <div class="page_bd">
+      <div class="weui-tab">
+        <div class="weui-tab__panel">
+          购物车
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
