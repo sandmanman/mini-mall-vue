@@ -1,4 +1,4 @@
-# mini-mall-vue
+# miniMall
 
 > 这是一个使用 Vue2.0， 仿 爱范儿-玩物店 的webapp，仅为个人学习练手，所有数据都来自 爱范儿-玩物店
 
