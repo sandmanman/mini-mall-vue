@@ -29,7 +29,7 @@
 </template>
 
 <script>
-    import products from 'components/product-list';
+    import products from 'components/productList';
 
     import api from 'src/pages/api/api-conf.js';
 

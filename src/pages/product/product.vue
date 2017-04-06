@@ -95,7 +95,7 @@
 
     import Tabs from 'components/Tabs';
     import TabItem from 'components/TabItem';
-    import ActionBar from './_action_bar';
+    import ActionBar from './_actionBar';
 
     import api from 'src/pages/api/api-conf.js';
 
