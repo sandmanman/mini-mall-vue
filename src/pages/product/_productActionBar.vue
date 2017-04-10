@@ -1,13 +1,13 @@
 <template>
     <tabbar class="action-tabbar">
-        <tabbar-item :link="{name: 'cart'}" badge="0">
+        <tabbar-item :link="{name: 'cart'}" :badge="cartCount+''">
             <span slot="icon" class="icon-font icon-cart ion-ios-cart-outline"></span>
             <span slot="label">购物车</span>
         </tabbar-item>
         <tabbar-item @on-item-click="addCart" class="add-cart-item">    
             <span slot="label">加入购物车</span>
         </tabbar-item>
-        <tabbar-item @on-item-click="buyConfirm" class="buy-confirm-item">
+        <tabbar-item @on-item-click="buyParameters" class="buy-confirm-item">
             <span slot="label">马上购买</span>
         </tabbar-item>
     </tabbar>
@@ -20,17 +20,30 @@
     } from 'vux';
 
     export default {
-        name: 'actionBar',
+        name: 'productActionBar',
         components: {
             Tabbar,
             TabbarItem
         },
+        data() {
+            return {
+                cartCount: 0
+            }
+        },
+        created() {
+            //this.getCartCount();
+        },
         methods: {
-            addCart() {
-                console.log('addCart');
+            getCartCount() {
+                //先实现通过localStorage获取购物车数量
+                
             },
-            buyConfirm() {
-                console.log('buyConfirm');
+            buyParameters() {
+                console.log('弹出商品的参数/色系/数量等的选择');
+            },
+            addCart() {
+                alert('先弹出选择商品属性，再购车数量加1')
+                this.cartCount += 1;
             }
         }
     }

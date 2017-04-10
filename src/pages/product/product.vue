@@ -74,10 +74,18 @@
                         </div>
                     </div>
                 </div>
+
+                
         
             </div>
         </div>
-    
+        
+        <!-- 购买参数弹出 S-->
+        <div class="buy-parameters-panel" v-show="showBuyParameters">
+            购买参数弹出
+        </div>
+        <!-- 购买参数弹出 End-->
+
         <action-bar></action-bar>
 
     </div>
@@ -97,7 +105,7 @@
 
     import Tabs from 'components/Tabs';
     import TabItem from 'components/TabItem';
-    import ActionBar from './_actionBar';
+    import ActionBar from './_productActionBar';
     
 
     import api from 'src/pages/api/api-conf.js';
@@ -123,7 +131,8 @@
                 attributes: [],
                 vendor: [],
                 isLike: false,
-                likeCount: 0
+                likeCount: 0,
+                showBuyParameters: false
             }
         },
         created() {
