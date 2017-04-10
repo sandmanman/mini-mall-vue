@@ -7,12 +7,19 @@
         </div>
       </div>
     </div>
+
+    <app-tabbar></app-tabbar>
+
   </div>
 </template>
 
 <script>
+    import appTabbar from 'components/tabbar'
     export default {
-        name: 'cart'
+        name: 'cart',
+        components: {
+          appTabbar
+        }
     }
 </script>
 

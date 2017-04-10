@@ -40,11 +40,16 @@
                     </div>   
                 </div>   
             </div>   
-        </div>    
+        </div>
+
+        <app-tabbar></app-tabbar>
+
     </div>
 </template>
 
 <script>
+
+    import appTabbar from 'components/tabbar';
     import banner from './_banner';
     import feature from './_feature';
     import shelf from './_shelf';
@@ -54,6 +59,7 @@
     export default {
         name: 'home',
         components: {
+            appTabbar,
             banner,
             feature,
             shelf,

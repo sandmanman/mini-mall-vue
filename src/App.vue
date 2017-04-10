@@ -4,21 +4,17 @@
         <app-headerbar></app-headerbar>
     
         <router-view></router-view>
-    
-        <app-tabbar v-if=" this.$route.name !== 'product' "></app-tabbar>
-    
+        
     </div>
 </template>
 
 <script>
     import appHeaderbar from 'components/headerbar'
-    import appTabbar from 'components/tabbar'
     
     export default {
         name: 'app',
         components: {
-            appHeaderbar,
-            appTabbar
+            appHeaderbar
         }
     }
 </script>

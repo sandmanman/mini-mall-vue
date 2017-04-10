@@ -1,18 +1,25 @@
 <template>
-  <div class="page">
-    <div class="page_bd">
-      <div class="weui-tab">
-        <div class="weui-tab__panel">
-          个人中心
+    <div class="page">
+        <div class="page_bd">
+            <div class="weui-tab">
+                <div class="weui-tab__panel">
+                    个人中心
+                </div>
+            </div>
         </div>
-      </div>
+
+        <app-tabbar></app-tabbar>
+    
     </div>
-  </div>
 </template>
 
 <script>
+    import appTabbar from 'components/tabbar'
     export default {
-        name: 'userCenter'
+        name: 'userCenter',
+        components: {
+            appTabbar
+        }
     }
 </script>
 

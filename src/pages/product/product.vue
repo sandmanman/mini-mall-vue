@@ -78,8 +78,8 @@
             </div>
         </div>
     
-    
         <action-bar></action-bar>
+
     </div>
 
 </template>
@@ -93,15 +93,19 @@
         XButton
     } from 'vux';
 
+    import appTabbar from 'components/tabbar'
+
     import Tabs from 'components/Tabs';
     import TabItem from 'components/TabItem';
     import ActionBar from './_actionBar';
+    
 
     import api from 'src/pages/api/api-conf.js';
 
     export default {
         name: 'product',
         components: {
+            appTabbar,
             Swiper,
             SwiperItem,
             Flexbox,
