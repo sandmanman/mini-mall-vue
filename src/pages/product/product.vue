@@ -10,7 +10,13 @@
                             <div class="swiper-wrap">
                                 <swiper auto :aspect-ratio="500/800" dots-position="center">
                                     <swiper-item v-for="img in product.images">
-                                        <img :src="img">
+                                        <div
+                                        :style="{
+                                        'background-image': 'url(' + img + ')',
+                                        'width':'100%',
+                                        'height':'100%',
+                                        'background-repeat':'no-repeae',
+                                        'background-size':'cover'}"></div>
                                     </swiper-item>
                                 </swiper>
                             </div>
@@ -81,12 +87,52 @@
         </div>
         
         <!-- 购买参数弹出 S-->
-        <div class="buy-parameters-panel" v-show="showBuyParameters">
-            购买参数弹出
-        </div>
+        <popup v-model="isShow">
+            <div class="popup buy-parameters-panel">
+                <div class="weui-panel weui-panel_access" style="margin-bottom:0;">
+                    <div class="weui-panel__hd">
+                        <div class="weui-media-box weui-media-box_appmsg">
+                            <div class="weui-media-box__hd" :style="{ backgroundImage: 'url(' + productPicFirst + ')' }"></div>
+                            <div class="weui-media-box__bd">
+                                <h4 class="weui-media-box__title">{{product.title}}</h4>
+                                <strong class="price price-text">￥{{product.price}}</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weui-panel__bd">
+                        <div class="weui-media-box weui-media-box_text attributes-box">
+                            <p style="margin-bottom:5px;">{{selectAttrKey}}</p>
+                            <checker default-item-class="p-param-item" selected-item-class="p-param-item-selected">
+                                <checker-item v-for="item in selectAttrValue" :value="item">{{item}}</checker-item>
+                            </checker>
+                        </div>
+
+                        <div class="weui-media-box weui-media-box_text quantity-box" style="padding:0 0 10px;">
+                            <x-number title="数量" :min="1" :value="1"></x-number>
+                        </div>
+                    </div>
+
+                    <div class="weui-panel__fd">
+                        <x-button type="primary" action-type="button" class="checkbtn">加入购物车</x-button>
+                    </div>
+                </div>
+            </div>
+        </popup>
         <!-- 购买参数弹出 End-->
 
-        <action-bar></action-bar>
+        <!-- action bar-->
+        <tabbar class="action-tabbar">
+            <tabbar-item :link="{name: 'cart'}" :badge="String(cartQuantity)" class="cart-item">
+                <span slot="icon" class="icon-font icon-cart ion-ios-cart-outline"></span>
+                <span slot="label">购物车</span>
+            </tabbar-item>
+            <tabbar-item @on-item-click="showBuyParameters" class="add-cart-item">    
+                <span slot="label">加入购物车</span>
+            </tabbar-item>
+            <tabbar-item @on-item-click="showBuyParameters" class="buy-confirm-item">
+                <span slot="label">马上购买</span>
+            </tabbar-item>
+        </tabbar>
 
     </div>
 
@@ -98,16 +144,20 @@
         SwiperItem,
         Flexbox,
         FlexboxItem,
-        XButton
+        XButton,
+        Popup,
+        Checker,
+        CheckerItem,
+        XNumber,
+        Tabbar,
+        TabbarItem
     } from 'vux';
 
     import appTabbar from 'components/tabbar'
 
     import Tabs from 'components/Tabs';
     import TabItem from 'components/TabItem';
-    import ActionBar from './_productActionBar';
     
-
     import api from 'src/pages/api/api-conf.js';
 
     export default {
@@ -119,20 +169,29 @@
             Flexbox,
             FlexboxItem,
             XButton,
+            Popup,
+            Checker,
+            CheckerItem,
+            XNumber,
             Tabs,
             TabItem,
-            ActionBar
+            Tabbar,
+            TabbarItem
         },
         data() {
             return {
                 productId: null,
                 product: [],
+                productPicFirst: '',
                 description: [],
                 attributes: [],
+                selectAttrKey:'',
+                selectAttrValue: [],
                 vendor: [],
                 isLike: false,
+                isShow: false,
                 likeCount: 0,
-                showBuyParameters: false
+                cartQuantity: 0
             }
         },
         created() {
@@ -144,7 +203,6 @@
                 return this.productId = this.$route.params.id;
             },
             getProduct(productId) {
-
                 let pid = productId;
                 console.log('product ID: ' + pid)
                 this.$http.get(api.getProduct(pid))
@@ -153,7 +211,14 @@
                         this.description = res.data.description;
                         this.attributes = res.data.attributes;
                         this.vendor = res.data.vendor;
+                        this.productPicFirst = res.data.images[0];
+                        this.selectAttrKey = res.data.attributes[2].key;
+                        this.selectAttrValue = (res.data.attributes[2].value).split('、');
                     });
+            },
+            getCartCount() {
+                //先实现通过localStorage获取购物车数量
+                
             },
             likeit() {
                 if (!this.isLike) {
@@ -165,12 +230,16 @@
                     console.warn('clicked');
                     alert('你已经点过喜欢了');
                 }
+            },
+            showBuyParameters() {
+                //显示购买参数popup
+                this.isShow = true
             }
         }
     }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
     .product-info-panel {
         margin-top: 0;
     }
@@ -227,5 +296,56 @@
 
     .vendor-summary {
         color: #707070;
+    }
+
+    //
+    .buy-parameters-panel {
+        position: relative;
+        .attributes-box {
+            max-height: 230px;
+            overflow-y: auto;
+        }
+        .weui-media-box__hd {
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+        }
+        .checkbtn {
+            background-color: #111;
+            border-radius: 0;
+        }
+
+        .p-param-item {
+            display: inline-block;
+            color: #707070;
+            border: 1px solid #ccc;
+            border-radius: 2px;
+            padding: 5px 12px;
+            margin-right: 12px;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+        .p-param-item-selected {
+            color: #fff;
+            border: 1px solid #e23737;
+            background-color: #e23737;
+        }
+    }
+
+    .action-tabbar {
+        .weui_tabbar_item.vux-tabbar-simple {
+            height: 100%;
+            line-height: 55px
+        }
+        .add-cart-item {
+            background-color: #000;
+        }
+        .buy-confirm-item {
+            background-color: #f74c31;
+        }
+        .weui_tabbar_item:not(:first-child) .weui_tabbar_label,
+        .weui_tabbar_item:not(:first-child).weui_bar_item_on .weui_tabbar_label {
+            color: #fff !important;
+        }
     }
 </style>
