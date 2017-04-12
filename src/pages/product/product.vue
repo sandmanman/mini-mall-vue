@@ -81,9 +81,6 @@
                         </div>
                     </div>
                 </div>
-
-                
-        
             </div>
         </div>
         
@@ -91,8 +88,9 @@
         <popup v-model="isShow">
             <div class="popup buy-parameters-panel">
                 <div class="weui-panel weui-panel_access" style="margin-bottom:0;">
-                    <!-- 产品图片/标题/价格 -->
-                    <div class="weui-panel__hd">
+                    
+                    <div class="weui-panel__bd">
+                        <!-- 产品图片/标题/价格 -->
                         <div class="weui-media-box weui-media-box_appmsg">
                             <div class="weui-media-box__hd" :style="{ backgroundImage: 'url(' + productPicFirst + ')' }"></div>
                             <div class="weui-media-box__bd">
@@ -100,25 +98,32 @@
                                 <strong class="price price-text">￥{{product.price}}</strong>
                             </div>
                         </div>
-                    </div>
-                    <div class="weui-panel__bd">
+
                         <!-- 选择规格 -->
-                        <div class="weui-media-box weui-media-box_text attributes-box">
+                        <div class="weui-media-box weui-media-box_text attributes-box"
+                        v-if="inusespecsValue">
                             <p style="margin-bottom:5px;font-size:14px;">选择{{ inusespecsKey }}</p>
                             <checker default-item-class="p-param-item" selected-item-class="p-param-item-selected">
-                                <checker-item v-for="value in inusespecsValue" :value="value">{{value}}</checker-item>
+                                <checker-item
+                                    v-for="(value, key) in inusespecsValue"
+                                    :value="value"
+                                    :data-for="key">
+                                    {{value}}
+                                </checker-item>
                             </checker>
                         </div>
+
                         <!-- 数量 -->
                         <div class="weui-media-box weui-media-box_text quantity-box" style="padding:0 0 10px;">
                             <group>
-                                <x-number title="数量" :min="1" :value="1"></x-number>
+                                <x-number title="数量" :min="1" :value="1" @on-change="changeCartCount"></x-number>
                             </group>
                         </div>
                     </div>
 
                     <div class="weui-panel__fd">
-                        <x-button type="primary" action-type="button" disabled class="checkbtn">加入购物车</x-button>
+                        <x-button type="primary" action-type="button" class="checkbtn"
+                        @click.native="addCart">加入购物车</x-button>
                     </div>
                 </div>
             </div>
@@ -127,7 +132,10 @@
 
         <!-- action bar-->
         <tabbar class="action-tabbar">
-            <tabbar-item :link="{name: 'cart'}" :badge="String(cartQuantity)" class="cart-item">
+            <tabbar-item
+                :link="{name: 'cart'}"
+                :badge="cartCount"
+                class="cart-item">
                 <span slot="icon" class="icon-font icon-cart ion-ios-cart-outline"></span>
                 <span slot="label">购物车</span>
             </tabbar-item>
@@ -198,7 +206,8 @@
                 isLike: false,
                 isShow: false,
                 likeCount: 0,
-                cartQuantity: 0
+                cartCount: null,
+                cartCountTemp: 0
             }
         },
         created() {
@@ -233,6 +242,8 @@
                         }
                         delete iv.spec_key_name;
                         this.inusespecsValue = iv;
+
+                        //console.log(this.inusespecsValue);
                     });
 
             },
@@ -254,6 +265,15 @@
             showBuyParameters() {
                 //显示购买参数popup
                 this.isShow = true
+            },
+            addCart() {
+                this.isShow = false
+                //更改cartCount值
+                this.cartCount = String(this.cartCountTemp)
+            },
+            changeCartCount(val) {
+                //console.log('change', val);
+                this.cartCountTemp = val;
             }
         }
     }
