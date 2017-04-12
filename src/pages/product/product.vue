@@ -15,7 +15,8 @@
                                         'background-image': 'url(' + img + ')',
                                         'width':'100%',
                                         'height':'100%',
-                                        'background-repeat':'no-repeae',
+                                        'background-repeat':'no-repeat',
+                                        'background-position': 'center',
                                         'background-size':'cover'}"></div>
                                     </swiper-item>
                                 </swiper>
