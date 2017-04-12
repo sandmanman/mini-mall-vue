@@ -1,6 +1,6 @@
 <template>
   <div class="app-headerbar">
-    <span class="logo">玩物店</span>
+    <a href="/" class="logo">玩物店</a>
 
     <span class="search-act">
       <i class="icon-font ion-ios-search"></i>
@@ -27,7 +27,9 @@
         background-color: #000;
         .logo {
             padding: 0 15px;
-        } // search icon
+            color: #fff;
+        }
+        // search icon
         .search-act {
             position: absolute;
             right: 0;

@@ -90,6 +90,7 @@
         <popup v-model="isShow">
             <div class="popup buy-parameters-panel">
                 <div class="weui-panel weui-panel_access" style="margin-bottom:0;">
+                    <!-- 产品图片/标题/价格 -->
                     <div class="weui-panel__hd">
                         <div class="weui-media-box weui-media-box_appmsg">
                             <div class="weui-media-box__hd" :style="{ backgroundImage: 'url(' + productPicFirst + ')' }"></div>
@@ -100,20 +101,23 @@
                         </div>
                     </div>
                     <div class="weui-panel__bd">
+                        <!-- 选择规格 -->
                         <div class="weui-media-box weui-media-box_text attributes-box">
-                            <p style="margin-bottom:5px;">{{selectAttrKey}}</p>
+                            <p style="margin-bottom:5px;font-size:14px;">选择{{ inusespecsKey }}</p>
                             <checker default-item-class="p-param-item" selected-item-class="p-param-item-selected">
-                                <checker-item v-for="item in selectAttrValue" :value="item">{{item}}</checker-item>
+                                <checker-item v-for="value in inusespecsValue" :value="value">{{value}}</checker-item>
                             </checker>
                         </div>
-
+                        <!-- 数量 -->
                         <div class="weui-media-box weui-media-box_text quantity-box" style="padding:0 0 10px;">
-                            <x-number title="数量" :min="1" :value="1"></x-number>
+                            <group>
+                                <x-number title="数量" :min="1" :value="1"></x-number>
+                            </group>
                         </div>
                     </div>
 
                     <div class="weui-panel__fd">
-                        <x-button type="primary" action-type="button" class="checkbtn">加入购物车</x-button>
+                        <x-button type="primary" action-type="button" disabled class="checkbtn">加入购物车</x-button>
                     </div>
                 </div>
             </div>
@@ -148,6 +152,7 @@
         Popup,
         Checker,
         CheckerItem,
+        Group,
         XNumber,
         Tabbar,
         TabbarItem
@@ -158,7 +163,7 @@
     import Tabs from 'components/Tabs';
     import TabItem from 'components/TabItem';
     
-    import api from 'src/pages/api/api-conf.js';
+    import api from 'src/api/api-conf.js';
 
     export default {
         name: 'product',
@@ -172,6 +177,7 @@
             Popup,
             Checker,
             CheckerItem,
+            Group,
             XNumber,
             Tabs,
             TabItem,
@@ -185,8 +191,8 @@
                 productPicFirst: '',
                 description: [],
                 attributes: [],
-                selectAttrKey:'',
-                selectAttrValue: [],
+                inusespecsKey: '',
+                inusespecsValue: {},
                 vendor: [],
                 isLike: false,
                 isShow: false,
@@ -208,13 +214,26 @@
                 this.$http.get(api.getProduct(pid))
                     .then((res) => {
                         this.product = res.data;
+                        //产品描述
                         this.description = res.data.description;
+                        //产品属性
                         this.attributes = res.data.attributes;
+                        //品牌信息
                         this.vendor = res.data.vendor;
+                        //产品图第一张
                         this.productPicFirst = res.data.images[0];
-                        this.selectAttrKey = res.data.attributes[2].key;
-                        this.selectAttrValue = (res.data.attributes[2].value).split('、');
+
+                        //产品规格选择
+                        let inusespecs = res.data.in_use_specs;
+                        let iv = {};
+                        for(var key in inusespecs){
+                            this.inusespecsKey = inusespecs[key].spec_key_name;
+                            iv = inusespecs[key];
+                        }
+                        delete iv.spec_key_name;
+                        this.inusespecsValue = iv;
                     });
+
             },
             getCartCount() {
                 //先实现通过localStorage获取购物车数量

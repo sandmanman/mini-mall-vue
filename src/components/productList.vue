@@ -21,7 +21,7 @@
         FlexboxItem
     } from 'vux';
 
-    import api from 'src/pages/api/api-conf.js';
+    import api from 'src/api/api-conf.js';
 
     export default {
         name: 'productList',

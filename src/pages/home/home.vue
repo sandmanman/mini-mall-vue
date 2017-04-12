@@ -54,7 +54,7 @@
     import feature from './_feature';
     import shelf from './_shelf';
     import products from 'components/productList';
-    import api from 'src/pages/api/api-conf.js';
+    import api from 'src/api/api-conf.js';
 
     export default {
         name: 'home',
