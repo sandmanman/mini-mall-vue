@@ -82,7 +82,8 @@
         <!-- 购买参数弹出 S-->
         <popup v-model="isShow">
             <div class="popup prod-parameters-panel">
-                <span class="close-btn" @click="isShow = false; selectedSpecsClass = '' ">&times;</span>
+                <span class="close-btn" 
+                @click=" isShow = false; selectedSpecsClass = ''; addOrBuy = '' ">&times;</span>
 
                 <div class="weui-panel weui-panel_access" style="margin-bottom:0;margin-top:0;">
                     
@@ -121,8 +122,16 @@
                     </div>
 
                     <div class="weui-panel__fd">
-                        <x-button type="primary" action-type="button" class="checkbtn"
-                        @click.native="addCart">加入购物车</x-button>
+
+                        <template v-if=" addOrBuy === 'add' ">
+                            <x-button type="primary" action-type="button" class="checkbtn"
+                                @click.native="addCart">加入购物车</x-button>
+                        </template>
+                        
+                        <template v-if=" addOrBuy === 'buy' ">
+                            <x-button type="primary" action-type="button" class="checkbtn"
+                                @click.native="goBuy">马上购买</x-button>
+                        </template>
                     </div>
                 </div>
             </div>
@@ -138,10 +147,10 @@
                 <span slot="icon" class="icon-font icon-cart ion-ios-cart-outline"></span>
                 <span slot="label">购物车</span>
             </tabbar-item>
-            <tabbar-item @on-item-click="isShow = true" class="add-cart-item">    
+            <tabbar-item @on-item-click="showProdParam('add')" class="add-cart-item">    
                 <span slot="label">加入购物车</span>
             </tabbar-item>
-            <tabbar-item @on-item-click="isShow = true" class="gobuy-item">
+            <tabbar-item @on-item-click="showProdParam('buy')" class="gobuy-item">
                 <span slot="label">马上购买</span>
             </tabbar-item>
         </tabbar>
@@ -208,7 +217,8 @@
                 selectedSpecsClass: '',
                 likeCount: 0,
                 cartCount: null,
-                cartCountTemp: 0
+                cartCountTemp: 0,
+                addOrBuy: ''
             }
         },
         created() {
@@ -273,37 +283,68 @@
                 //改变选中样式
                 this.selectedSpecsClass = 'p-param-item-selected';
             },
+            showProdParam(type) {
+                //打开商品规格选择popup
+                this.isShow = true;
+
+                this.addOrBuy = type;
+            },
+            isSelectedSpecs() {
+                //没有选择商品规格，弹出提示
+                this.$vux.alert.show({
+                    title: '提示',
+                    content: '请选择'+this.inusespecsKey
+                });
+            },
             addCart() {
                 /*
                  * 1.判断是否选择产品规格，没有则弹出提示
                  * 2.更新购物车数量
                  * 3.关闭popup
                 */
-                if( this.isCheckSpecs === true ) {
+                if( this.isCheckSpecs === true || !this.inusespecsValue.length ) {
                     this.isShow = false
                     //更改cartCount值
                     this.cartCount = String(this.cartCountTemp)
                     this.isCheckSpecs = false
                     //规格选中样式清空
                     this.selectedSpecsClass = ''
+
+                    this.addOrBuy = ''
                 } else {
-                    this.$vux.alert.show({
-                        title: '提示',
-                        content: '请选择'+this.inusespecsKey
-                    });
+                    this.isSelectedSpecs();
                 }
             },
             changeProdQuantity(val) {
                 //console.log('change', val);
                 this.cartCountTemp = val;
+            },
+            goBuy() {
+                /*
+                * 1.判断是否选择该商品的规格
+                * 2.关闭popup，跳转到下单页面
+                */
+                if( this.isCheckSpecs === true || !this.inusespecsValue.length ) {
+                    this.isShow = false
+                    //更改cartCount值
+                    this.cartCount = String(this.cartCountTemp)
+                    this.isCheckSpecs = false
+                    //规格选中样式清空
+                    this.selectedSpecsClass = ''
+
+                    this.addOrBuy = ''
+
+                    //跳转到下单页
+                    this.$router.push({name: 'orderCreate'});
+
+                } else {
+                    this.isSelectedSpecs();
+                }
             }
-        },
-        goBuy() {
-            /*
-            * 1.判断是否选择该商品的规格
-            * 2.跳转到下单页面
-            */
+
+
         }
+        
     }
 </script>
 
@@ -423,6 +464,7 @@
         .weui_tabbar_item:not(:first-child) .weui_tabbar_label,
         .weui_tabbar_item:not(:first-child).weui_bar_item_on .weui_tabbar_label {
             color: #fff !important;
+            font-size: 16px;
         }
     }
 </style>
