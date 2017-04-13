@@ -31,20 +31,15 @@
                                         <span class="original-price" v-if="product.price !== product.original_price">￥{{product.original_price}}</span>
                                         <p class="weui-media-box__desc summary">{{product.summary}}</p>
                                     </div>
-                                    <div class="weui-media-box" style="padding-bottom:0;">
-                                        <flexbox>
-                                            <flexbox-item>
-                                                <x-button @click.native="likeit" v-bind:class="{active: isLike}">
-                                                    <i class="icon-font ion-ios-heart"></i>
-                                                    <span>{{product.like_count}}</span>
-                                                </x-button>
-                                            </flexbox-item>
-                                            <flexbox-item>
-                                                <x-button>
-                                                    <i class="icon-font ion-android-share-alt"></i> 分享
-                                                </x-button>
-                                            </flexbox-item>
-                                        </flexbox>
+                                    <div class="weui-media-box" style="padding-bottom:0;text-align:center;">
+                                        <x-button @click.native="likeit" v-bind:class="{active: isLike}">
+                                            <i class="icon-font ion-ios-heart"></i>
+                                            <span>{{product.like_count}}</span>
+                                        </x-button>
+
+                                        <x-button>
+                                            <i class="icon-font ion-android-share-alt"></i> 分享
+                                        </x-button>
                                     </div>
                                 </div>
                             </div>
@@ -86,8 +81,10 @@
         
         <!-- 购买参数弹出 S-->
         <popup v-model="isShow">
-            <div class="popup buy-parameters-panel">
-                <div class="weui-panel weui-panel_access" style="margin-bottom:0;">
+            <div class="popup prod-parameters-panel">
+                <span class="close-btn" @click="isShow = false; selectedSpecsClass = '' ">&times;</span>
+
+                <div class="weui-panel weui-panel_access" style="margin-bottom:0;margin-top:0;">
                     
                     <div class="weui-panel__bd">
                         <!-- 产品图片/标题/价格 -->
@@ -100,14 +97,16 @@
                         </div>
 
                         <!-- 选择规格 -->
-                        <div class="weui-media-box weui-media-box_text attributes-box"
+                        <div class="weui-media-box weui-media-box_text specs-box"
                         v-if="inusespecsValue">
-                            <p style="margin-bottom:5px;font-size:14px;">选择{{ inusespecsKey }}</p>
-                            <checker default-item-class="p-param-item" selected-item-class="p-param-item-selected">
+                            <p style="margin-bottom:5px;font-size:14px;">{{ inusespecsKey }}</p>
+                            <checker default-item-class="p-param-item" :selected-item-class="selectedSpecsClass">
                                 <checker-item
+                                    type="radio"
                                     v-for="(value, key) in inusespecsValue"
                                     :value="value"
-                                    :data-for="key">
+                                    :data-for="key"
+                                    @on-item-click="checkSpecs">
                                     {{value}}
                                 </checker-item>
                             </checker>
@@ -139,10 +138,10 @@
                 <span slot="icon" class="icon-font icon-cart ion-ios-cart-outline"></span>
                 <span slot="label">购物车</span>
             </tabbar-item>
-            <tabbar-item @on-item-click="showBuyParameters" class="add-cart-item">    
+            <tabbar-item @on-item-click="isShow = true" class="add-cart-item">    
                 <span slot="label">加入购物车</span>
             </tabbar-item>
-            <tabbar-item @on-item-click="showBuyParameters" class="buy-confirm-item">
+            <tabbar-item @on-item-click="isShow = true" class="gobuy-item">
                 <span slot="label">马上购买</span>
             </tabbar-item>
         </tabbar>
@@ -205,6 +204,8 @@
                 vendor: [],
                 isLike: false,
                 isShow: false,
+                isCheckSpecs: false,
+                selectedSpecsClass: '',
                 likeCount: 0,
                 cartCount: null,
                 cartCountTemp: 0
@@ -253,23 +254,47 @@
             },
             likeit() {
                 if (!this.isLike) {
-                    console.log('I like it.');
                     this.isLike = true;
                     this.likeNum += 1;
                     return false;
                 } else {
-                    console.warn('clicked');
-                    alert('你已经点过喜欢了');
+                    this.$vux.toast.show({
+                        type: 'text',
+                        text: '您已经收藏过了'
+                    })
                 }
             },
-            showBuyParameters() {
-                //显示购买参数popup
-                this.isShow = true
+            checkSpecs() {
+                //规格选择
+                this.isCheckSpecs = true;
+                //改变选中样式
+                this.selectedSpecsClass = 'p-param-item-selected';
             },
             addCart() {
-                this.isShow = false
-                //更改cartCount值
-                this.cartCount = String(this.cartCountTemp)
+                /*
+                 * 1.点击按钮，判断是否选择产品规格，没有则弹出需要选择规格的提示
+                 * 2.更新购物车数量
+                 * 3.关闭popup
+                */
+                if( this.isCheckSpecs === true ) {
+                    this.isShow = false
+                    //更改cartCount值
+                    this.cartCount = String(this.cartCountTemp)
+                    this.isCheckSpecs = false
+                    //规格选中样式清空
+                    this.selectedSpecsClass = ''
+                } else {
+                    this.$vux.alert.show({
+                        title: '提示',
+                        content: '请选择'+this.inusespecsKey,
+                        onShow () {
+                            console.log('Plugin: I\'m showing')
+                        },
+                        onHide () {
+                            console.log('Plugin: I\'m hiding')
+                        }
+                    });
+                }
             },
             changeCartCount(val) {
                 //console.log('change', val);
@@ -282,30 +307,27 @@
 <style lang="less">
     .product-info-panel {
         margin-top: 0;
-    }
-
-    .weui_btn {
-        display: inline-block;
-        width: 70%;
-        color: #666;
-        font-size: 14px;
-        line-height: 1.7;
-        .icon-font {
-            margin-right: 5px;
-            font-size: 20px;
-            vertical-align: middle;
+    
+        .weui_btn {
+            display: inline-block;
+            margin-top: 0 !important;
+            width: 40%;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.7;
+            .icon-font {
+                margin-right: 5px;
+                font-size: 20px;
+                vertical-align: middle;
+            }
+            &,
+            &:after {
+                border-radius: 1000px;
+            }
+            &.active .ion-ios-heart {
+                color: #ff2200;
+            }
         }
-        &,
-        &:after {
-            border-radius: 1000px;
-        }
-        &.active .ion-ios-heart {
-            color: #ff2200;
-        }
-    }
-
-    .vux-flexbox-item {
-        text-align: center;
     }
 
     .attributes-list>p {
@@ -339,9 +361,21 @@
     }
 
     //
-    .buy-parameters-panel {
+    .prod-parameters-panel {
         position: relative;
-        .attributes-box {
+        .close-btn {
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            color: #999;
+            font-size: 37px;
+            line-height: 40px;
+            text-align: center;
+        }
+        .specs-box {
             max-height: 230px;
             overflow-y: auto;
         }
@@ -380,7 +414,7 @@
         .add-cart-item {
             background-color: #000;
         }
-        .buy-confirm-item {
+        .gobuy-item {
             background-color: #f74c31;
         }
         .weui_tabbar_item:not(:first-child) .weui_tabbar_label,

@@ -6,6 +6,10 @@ import Axios from './utils/axios-conf';
 import router from 'src/router/router';
 import App from './App';
 
+import  { AlertPlugin, ToastPlugin  } from 'vux'
+Vue.use(AlertPlugin);
+Vue.use(ToastPlugin);
+
 // axios
 Vue.prototype.$http = Axios;
 
