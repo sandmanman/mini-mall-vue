@@ -115,7 +115,7 @@
                         <!-- 数量 -->
                         <div class="weui-media-box weui-media-box_text quantity-box" style="padding:0 0 10px;">
                             <group>
-                                <x-number title="数量" :min="1" :value="1" @on-change="changeCartCount"></x-number>
+                                <x-number title="数量" :min="1" :value="1" @on-change="changeProdQuantity"></x-number>
                             </group>
                         </div>
                     </div>
@@ -250,9 +250,12 @@
             },
             getCartCount() {
                 //先实现通过localStorage获取购物车数量
+                //
                 
             },
             likeit() {
+                //点击喜欢
+                //
                 if (!this.isLike) {
                     this.isLike = true;
                     this.likeNum += 1;
@@ -272,7 +275,7 @@
             },
             addCart() {
                 /*
-                 * 1.点击按钮，判断是否选择产品规格，没有则弹出需要选择规格的提示
+                 * 1.判断是否选择产品规格，没有则弹出提示
                  * 2.更新购物车数量
                  * 3.关闭popup
                 */
@@ -286,20 +289,20 @@
                 } else {
                     this.$vux.alert.show({
                         title: '提示',
-                        content: '请选择'+this.inusespecsKey,
-                        onShow () {
-                            console.log('Plugin: I\'m showing')
-                        },
-                        onHide () {
-                            console.log('Plugin: I\'m hiding')
-                        }
+                        content: '请选择'+this.inusespecsKey
                     });
                 }
             },
-            changeCartCount(val) {
+            changeProdQuantity(val) {
                 //console.log('change', val);
                 this.cartCountTemp = val;
             }
+        },
+        goBuy() {
+            /*
+            * 1.判断是否选择该商品的规格
+            * 2.跳转到下单页面
+            */
         }
     }
 </script>
