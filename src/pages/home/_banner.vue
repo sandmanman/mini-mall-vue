@@ -1,6 +1,6 @@
 <template>
   <div class="swiper-wrap">
-    <swiper auto :aspect-ratio="470/800" :show-dots="false" dots-position="center">
+    <swiper auto :aspect-ratio="470/900" :show-dots="false" dots-position="center">
       <swiper-item v-for="item in bannerList">
         <img :src="item.image">
       </swiper-item>

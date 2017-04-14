@@ -98,19 +98,20 @@
                         </div>
 
                         <!-- 选择规格 -->
-                        <div class="weui-media-box weui-media-box_text specs-box"
-                        v-if="inusespecsValue">
-                            <p style="margin-bottom:5px;font-size:14px;">{{ inusespecsKey }}</p>
-                            <checker default-item-class="p-param-item" :selected-item-class="selectedSpecsClass">
-                                <checker-item
-                                    type="radio"
-                                    v-for="(value, key) in inusespecsValue"
-                                    :value="value"
-                                    :data-for="key"
-                                    @on-item-click="checkSpecs">
-                                    {{value}}
-                                </checker-item>
-                            </checker>
+                        <div class="weui-media-box weui-media-box_text specs-box">
+                            <template v-for="(value, key) in inusespecs">
+                                <p style="margin-bottom:5px;font-size:14px;">{{ key }}</p>
+                                <checker default-item-class="p-param-item" :selected-item-class="selectedSpecsClass">
+                                    <checker-item
+                                        type="radio"
+                                        v-for="(item, key) in value"
+                                        :value="item"
+                                        :data-for="key"
+                                        @on-item-click="checkSpecs">
+                                        {{item}}
+                                    </checker-item>
+                                </checker>
+                            </template>
                         </div>
 
                         <!-- 数量 -->
@@ -142,7 +143,7 @@
         <tabbar class="action-tabbar">
             <tabbar-item
                 :link="{name: 'cart'}"
-                :badge="cartCount"
+                :badge="String(cartCount)"
                 class="cart-item">
                 <span slot="icon" class="icon-font icon-cart ion-ios-cart-outline"></span>
                 <span slot="label">购物车</span>
@@ -208,15 +209,15 @@
                 productPicFirst: '',
                 description: [],
                 attributes: [],
-                inusespecsKey: '',
-                inusespecsValue: {},
+                inusespecs: {},
+                inusespecsKey:[],
                 vendor: [],
                 isLike: false,
                 isShow: false,
                 isCheckSpecs: false,
                 selectedSpecsClass: '',
                 likeCount: 0,
-                cartCount: null,
+                cartCount: 0,
                 cartCountTemp: 0,
                 addOrBuy: ''
             }
@@ -244,17 +245,24 @@
                         //产品图第一张
                         this.productPicFirst = res.data.images[0];
 
-                        //产品规格选择
-                        let inusespecs = res.data.in_use_specs;
-                        let iv = {};
-                        for(var key in inusespecs){
-                            this.inusespecsKey = inusespecs[key].spec_key_name;
-                            iv = inusespecs[key];
-                        }
-                        delete iv.spec_key_name;
-                        this.inusespecsValue = iv;
+                        //产品规格
+                        var inusespecs = res.data.in_use_specs,
+                            specsNew = {},
+                            specsKey = [];
+                        
+                        for(let key in inusespecs){
+                            let skey =  String(inusespecs[key].spec_key_name),
+                                svalue = inusespecs[key];
+                            
+                            specsKey.push(skey)
 
-                        //console.log(this.inusespecsValue);
+                            delete svalue.spec_key_name
+
+                            specsNew[skey] = svalue
+                        }
+
+                        this.inusespecsKey = specsKey;
+                        this.inusespecs = specsNew;
                     });
 
             },
@@ -284,6 +292,7 @@
                 this.selectedSpecsClass = 'p-param-item-selected';
             },
             showProdParam(type) {
+                console.log('isCheckSpecs:'+this.isCheckSpecs);
                 //打开商品规格选择popup
                 this.isShow = true;
 
@@ -302,15 +311,17 @@
                  * 2.更新购物车数量
                  * 3.关闭popup
                 */
-                if( this.isCheckSpecs === true || !this.inusespecsValue.length ) {
+                if( this.isCheckSpecs === true || this.isEmptyObj(this.inusespecs) ) {
+                    let currentCartCount = this.cartCount // 先保存当前购物车数量
                     this.isShow = false
                     //更改cartCount值
-                    this.cartCount = String(this.cartCountTemp)
+                    this.cartCount = currentCartCount + this.cartCountTemp
                     this.isCheckSpecs = false
                     //规格选中样式清空
                     this.selectedSpecsClass = ''
 
                     this.addOrBuy = ''
+
                 } else {
                     this.isSelectedSpecs();
                 }
@@ -324,10 +335,12 @@
                 * 1.判断是否选择该商品的规格
                 * 2.关闭popup，跳转到下单页面
                 */
-                if( this.isCheckSpecs === true || !this.inusespecsValue.length ) {
+                
+                if( this.isCheckSpecs === true || this.isEmptyObj(this.inusespecs) ) {
+                    let currentCartCount = this.cartCount // 先保存当前购物车数量
                     this.isShow = false
                     //更改cartCount值
-                    this.cartCount = String(this.cartCountTemp)
+                    this.cartCount = currentCartCount + this.cartCountTemp
                     this.isCheckSpecs = false
                     //规格选中样式清空
                     this.selectedSpecsClass = ''
@@ -340,8 +353,20 @@
                 } else {
                     this.isSelectedSpecs();
                 }
-            }
+            },
+            isEmptyObj(obj) {
+                //ES5
+                return Object.keys(obj).length === 0;
 
+                // function isEmpty(obj) {
+                //     for(var prop in obj) {
+                //         if(obj.hasOwnProperty(prop))
+                //             return false;
+                //     }
+
+                //     return true;
+                // }
+            }
 
         }
         
@@ -445,8 +470,8 @@
         }
         .p-param-item-selected {
             color: #fff;
-            border: 1px solid #e23737;
-            background-color: #e23737;
+            border: 1px solid #4b4d5a;
+            background-color: #4b4d5a;
         }
     }
 
@@ -456,7 +481,7 @@
             line-height: 55px
         }
         .add-cart-item {
-            background-color: #000;
+            background-color: #4b4d5a;
         }
         .gobuy-item {
             background-color: #f74c31;
