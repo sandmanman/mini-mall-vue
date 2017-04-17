@@ -80,10 +80,10 @@
         </div>
         
         <!-- 购买参数弹出 S-->
-        <popup v-model="isShow">
+        <popup v-model="isShow" @on-hide="closeProdParam">
             <div class="popup prod-parameters-panel">
                 <span class="close-btn" 
-                @click=" isShow = false; selectedSpecsClass = ''; addOrBuy = '' ">&times;</span>
+                @click="closeProdParam">&times;</span>
 
                 <div class="weui-panel weui-panel_access" style="margin-bottom:0;margin-top:0;">
                     
@@ -298,8 +298,14 @@
 
                 this.addOrBuy = type;
             },
+            closeProdParam() {
+                this.isShow = false;
+                this.isCheckSpecs = false;
+                this.selectedSpecsClass = '';
+                this.addOrBuy = '';
+            },
             isSelectedSpecs() {
-                //没有选择商品规格，弹出提示
+                //没有选择商品规格类型，弹出提示
                 this.$vux.alert.show({
                     title: '提示',
                     content: '请选择'+this.inusespecsKey
@@ -347,8 +353,8 @@
 
                     this.addOrBuy = ''
 
-                    //跳转到下单页
-                    this.$router.push({name: 'orderCreate'});
+                    //跳转到购物车列表页
+                    this.$router.push({name: 'cart'});
 
                 } else {
                     this.isSelectedSpecs();
