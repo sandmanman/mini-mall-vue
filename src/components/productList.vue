@@ -6,7 +6,6 @@
           <div class="product-cover-image" 
           :style="{ backgroundImage: 'url(' + item.cover_image + ')' }"></div>
           <h4 class="product-title">{{item.title}}</h4>
-          <p class="vendor-name">{{item.vendor.name}}</p>
           <strong class="price">￥{{item.price}}</strong>
           <span class="original-price" v-if="item.price !== item.original_price">￥{{item.original_price}}</span>
         </router-link>
@@ -95,11 +94,9 @@
             -webkit-line-clamp: 1;
             -webkit-box-orient: vertical;
         }
-        .original-price,
-        .vendor-name {
-            color: #bbb;
-        }
+        
         .original-price {
+            color: #bbb;
             text-decoration: line-through;
         }
     }
