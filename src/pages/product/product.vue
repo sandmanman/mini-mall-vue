@@ -445,7 +445,8 @@
             text-align: center;
         }
         .specs-box {
-            max-height: 230px;
+            padding-bottom: 0;
+            max-height: 228px;
             overflow-y: auto;
         }
         .weui-media-box__hd {
