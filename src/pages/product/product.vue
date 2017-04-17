@@ -319,14 +319,10 @@
                 */
                 if( this.isCheckSpecs === true || this.isEmptyObj(this.inusespecs) ) {
                     let currentCartCount = this.cartCount // 先保存当前购物车数量
-                    this.isShow = false
                     //更改cartCount值
                     this.cartCount = currentCartCount + this.cartCountTemp
-                    this.isCheckSpecs = false
-                    //规格选中样式清空
-                    this.selectedSpecsClass = ''
-
-                    this.addOrBuy = ''
+                    //关闭popup
+                    this.closeProdParam()
 
                 } else {
                     this.isSelectedSpecs();
@@ -344,15 +340,10 @@
                 
                 if( this.isCheckSpecs === true || this.isEmptyObj(this.inusespecs) ) {
                     let currentCartCount = this.cartCount // 先保存当前购物车数量
-                    this.isShow = false
                     //更改cartCount值
                     this.cartCount = currentCartCount + this.cartCountTemp
-                    this.isCheckSpecs = false
-                    //规格选中样式清空
-                    this.selectedSpecsClass = ''
-
-                    this.addOrBuy = ''
-
+                    //关闭popup
+                    this.closeProdParam()
                     //跳转到购物车列表页
                     this.$router.push({name: 'cart'});
 

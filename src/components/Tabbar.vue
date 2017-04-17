@@ -4,7 +4,7 @@
       <span slot="icon" class="icon-font icon-home ion-ios-home-outline"></span>
       <span slot="label">首页</span>
     </tabbar-item>
-    <tabbar-item :link="{name: 'cart'}" :selected="$route.name === 'cart'" :badge="String(cartCount)">
+    <tabbar-item :link="{name: 'cart'}" :selected="$route.name === 'cart'" :badge="String(cart.items.length)">
       <span slot="icon" class="icon-font icon-cart ion-ios-cart-outline"></span>
       <span slot="label">购物车</span>
     </tabbar-item>
@@ -16,6 +16,8 @@
 </template>
 
 <script>
+    import { mapState } from 'vuex'
+
     import {
         Tabbar,
         TabbarItem
@@ -27,10 +29,18 @@
             Tabbar,
             TabbarItem
         },
-        data() {
-            return {
-                cartCount: 0
-            }
+        // data() {
+        //     return {
+        //         cartCount: 0
+        //     }
+        // },
+        computed: {
+            // cartCount() {
+            //     return this.$store.getters.productChunk.length
+            // },
+            ...mapState([
+                'cart'
+            ]),
         },
         watch: {
             // 查询路由信息对象

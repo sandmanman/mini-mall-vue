@@ -6,6 +6,9 @@ import Axios from './utils/axios-conf';
 import router from 'src/router/router';
 import App from './App';
 
+//vuex
+import store from './store';
+
 import  { AlertPlugin, ToastPlugin  } from 'vux'
 Vue.use(AlertPlugin);
 Vue.use(ToastPlugin);
@@ -19,5 +22,6 @@ FastClick.attach(document.body);
 /* eslint-disable no-new */
 new Vue({
     router,
+    store,
     render: h => h(App)
 }).$mount('#app')
