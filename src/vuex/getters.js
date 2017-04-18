@@ -1,3 +1,7 @@
+/**
+ * getter商品数据
+ * id title price quantity specs
+ */
 export const cartProducts = state => {
   return state.cart.added.map(({ id, quantity }) => {
     const product = state.products.all.find(p => p.id === id)

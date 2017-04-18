@@ -15,6 +15,7 @@ const state = {
 // mutations
 const mutations = {
   [ADD_TO_CART] (state, productId) {
+    // add cart
     state.lastCheckout = null
     const record = state.added.find(p => p.id === productId)
     if (!record) {

@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Vuex from '../../../src'
+import Vuex from 'vuex'
 import cart from './modules/cart'
 import products from './modules/products'
 import createLogger from '../../../src/plugins/logger'

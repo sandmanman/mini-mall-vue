@@ -32,7 +32,8 @@
 
     import appTabbar from 'components/tabbar'
 
-    import { numberFormat } from 'utils'
+    import { checkout } from '../vuex/actions'
+    import { cartProducts } from '../vuex/getters'
 
     export default {
         name: 'carts',
