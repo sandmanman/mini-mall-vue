@@ -1,6 +1,6 @@
 <template>
   <div class="app-headerbar">
-    <a href="/" class="logo">玩物店</a>
+    <a href="/" class="logo">MINI Mall</a>
 
     <span class="search-act">
       <i class="icon-font ion-ios-search"></i>

@@ -181,3 +181,41 @@ body {
 
     font-size: 14px;
 }
+
+
+
+//没有数据
+.nodata-panel {
+    display: flex;
+    align-items: center;
+    min-height: 100%;
+
+    color: #bbb;
+    font-size: 14px;
+    text-align: center;
+
+    .inner {
+        flex: 1;
+        align-self: center;
+    }
+    .icon-outer {
+        display: inline-block;
+        width: 76px;
+        height: 76px;
+
+        line-height: 76px;
+        text-align: center;
+
+        border: 1px solid #ddd;
+        border-radius: 100%;
+
+        .icon-font {
+            font-size: 40px;
+        }
+    }
+
+    .text {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+}

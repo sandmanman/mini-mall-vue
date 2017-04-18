@@ -143,7 +143,7 @@
         <tabbar class="action-tabbar">
             <tabbar-item
                 :link="{name: 'cart'}"
-                :badge="String(cartCount)"
+                :badge="cart.items.length == 0 ? '' : String(cart.items.length)"
                 class="cart-item">
                 <span slot="icon" class="icon-font icon-cart ion-ios-cart-outline"></span>
                 <span slot="label">购物车</span>
@@ -161,6 +161,8 @@
 </template>
 
 <script>
+    import {mapState, mapActions} from 'vuex'
+
     import {
         Swiper,
         SwiperItem,
@@ -214,10 +216,9 @@
                 vendor: [],
                 isLike: false,
                 isShow: false,
-                isCheckSpecs: false,
+                isSelectedSpecs: false,
                 selectedSpecsClass: '',
                 likeCount: 0,
-                cartCount: 0,
                 cartCountTemp: 0,
                 addOrBuy: ''
             }
@@ -225,6 +226,12 @@
         created() {
             this.getProductId();
             this.getProduct(this.productId);
+        },
+        computed: {
+            //使用对象展开运算符将此对象混入到外部对象中
+            ...mapState([
+                'cart'
+            ]),
         },
         methods: {
             getProductId() {
@@ -266,11 +273,6 @@
                     });
 
             },
-            getCartCount() {
-                //先实现通过localStorage获取购物车数量
-                //
-                
-            },
             likeit() {
                 //点击喜欢
                 //
@@ -281,18 +283,18 @@
                 } else {
                     this.$vux.toast.show({
                         type: 'text',
-                        text: '您已经收藏过了'
+                        text: 'liked'
                     })
                 }
             },
             checkSpecs() {
                 //规格选择
-                this.isCheckSpecs = true;
+                this.isSelectedSpecs = true;
                 //改变选中样式
                 this.selectedSpecsClass = 'p-param-item-selected';
             },
             showProdParam(type) {
-                console.log('isCheckSpecs:'+this.isCheckSpecs);
+                console.log('isSelectedSpecs:'+this.isSelectedSpecs);
                 //打开商品规格选择popup
                 this.isShow = true;
 
@@ -300,11 +302,11 @@
             },
             closeProdParam() {
                 this.isShow = false;
-                this.isCheckSpecs = false;
+                this.isSelectedSpecs = false;
                 this.selectedSpecsClass = '';
                 this.addOrBuy = '';
             },
-            isSelectedSpecs() {
+            noSelectedSpecs() {
                 //没有选择商品规格类型，弹出提示
                 this.$vux.alert.show({
                     title: '提示',
@@ -317,15 +319,18 @@
                  * 2.更新购物车数量
                  * 3.关闭popup
                 */
-                if( this.isCheckSpecs === true || this.isEmptyObj(this.inusespecs) ) {
+
+                if( this.isSelectedSpecs === true || this.isEmptyObj(this.inusespecs) ) {
                     let currentCartCount = this.cartCount // 先保存当前购物车数量
                     //更改cartCount值
-                    this.cartCount = currentCartCount + this.cartCountTemp
+                    //this.cartCount = currentCartCount + this.cartCountTemp
                     //关闭popup
                     this.closeProdParam()
 
+                    
+
                 } else {
-                    this.isSelectedSpecs();
+                    this.noSelectedSpecs();
                 }
             },
             changeProdQuantity(val) {
@@ -338,7 +343,7 @@
                 * 2.关闭popup，跳转到下单页面
                 */
                 
-                if( this.isCheckSpecs === true || this.isEmptyObj(this.inusespecs) ) {
+                if( this.isSelectedSpecs === true || this.isEmptyObj(this.inusespecs) ) {
                     let currentCartCount = this.cartCount // 先保存当前购物车数量
                     //更改cartCount值
                     this.cartCount = currentCartCount + this.cartCountTemp
@@ -348,7 +353,7 @@
                     this.$router.push({name: 'cart'});
 
                 } else {
-                    this.isSelectedSpecs();
+                    this.noSelectedSpecs();
                 }
             },
             isEmptyObj(obj) {
@@ -363,7 +368,10 @@
 
                 //     return true;
                 // }
-            }
+            },
+            ...mapActions([
+                'addToCart'
+            ])
 
         }
         

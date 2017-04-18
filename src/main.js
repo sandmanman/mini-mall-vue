@@ -7,7 +7,7 @@ import router from 'src/router/router';
 import App from './App';
 
 //vuex
-import store from './store';
+import store from './vuex/store'
 
 import  { AlertPlugin, ToastPlugin  } from 'vux'
 Vue.use(AlertPlugin);

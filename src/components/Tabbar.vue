@@ -4,7 +4,8 @@
       <span slot="icon" class="icon-font icon-home ion-ios-home-outline"></span>
       <span slot="label">首页</span>
     </tabbar-item>
-    <tabbar-item :link="{name: 'cart'}" :selected="$route.name === 'cart'" :badge="String(cart.items.length)">
+    <tabbar-item :link="{name: 'cart'}" :selected="$route.name === 'cart'"
+      :badge="cart.items.length == 0 ? '' : String(cart.items.length)">
       <span slot="icon" class="icon-font icon-cart ion-ios-cart-outline"></span>
       <span slot="label">购物车</span>
     </tabbar-item>
@@ -29,15 +30,8 @@
             Tabbar,
             TabbarItem
         },
-        // data() {
-        //     return {
-        //         cartCount: 0
-        //     }
-        // },
         computed: {
-            // cartCount() {
-            //     return this.$store.getters.productChunk.length
-            // },
+            //使用对象展开运算符将此对象混入到外部对象中
             ...mapState([
                 'cart'
             ]),
