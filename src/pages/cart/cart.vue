@@ -4,7 +4,7 @@
       <div class="weui-tab">
         <div class="weui-tab__panel">
 
-            <div class="nodata-panel"  v-if="!cart.items.length">
+            <div class="nodata-panel" v-if="!cart.items.length">
                 <div class="inner">
                     <span class="icon-outer">
                         <i class="icon-font ion-ios-cart-outline"></i>
@@ -32,11 +32,10 @@
 
     import appTabbar from 'components/tabbar'
 
-    import { checkout } from '../vuex/actions'
-    import { cartProducts } from '../vuex/getters'
+    import { numberFormat } from 'utils'
 
     export default {
-        name: 'carts',
+        name: 'cart',
         components: {
             appTabbar
         },
@@ -53,13 +52,12 @@
                 this.updateQuantity({ product: item, quantity: ev.target.value })
             },
             ...mapActions([
-                'removeFromCart',//从购物车中移除
-                'updateQuantity'//更新购物车数量
+                'removeFromCart',
+                'updateQuantity'
             ])
         },
         filters: {
-            priceNumberFormat(value) {
-                //价钱数字格式化，保留2位小数
+            priceFormat (value) {
                 return numberFormat(value, 2)
             }
         }
