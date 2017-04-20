@@ -15,29 +15,59 @@
             </div>
 
 
-            <div v-else>
-                <h3>显示购物车商品信息</h3>
+            <div class="cart-list-panel" v-else>
+                
+                <div class="cart-list">
+                    <div class="cart-item" v-for="item in cart.items" :key="item.id">
+                        <div class="image">
+                            <img src="https://placehold.it/90x90">
+                        </div>
+                        <strong>{{ item.title }}</strong> ￥{{ item.price }}
+
+                        <input type="number" class="qty" :value="item.quantity" @change="updateValue(item, $event)">
+
+                        <a class="button is-danger is-small" @click="removeFromCart(item)">
+                            <span>
+                            Remove
+                            </span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="cart-control-bar">
+                    <flexbox>
+                        <flexbox-item>
+                            <div class="total">
+                                总价：<strong class="price">￥{{ summary | priceFormat }}</strong>
+                            </div>
+                        </flexbox-item>
+                        <flexbox-item>
+                            <button type="button" class="weui-btn weui-btn_warn check-btn">马上结算</button>
+                        </flexbox-item>
+                    </flexbox>
+                </div>
+
             </div>
+
+
         </div>
       </div>
     </div>
-
-    <app-tabbar></app-tabbar>
 
   </div>
 </template>
 
 <script>
     import { mapState, mapGetters, mapActions } from 'vuex'
-
-    import appTabbar from 'components/tabbar'
-
     import { numberFormat } from 'utils'
+
+    import { Flexbox, FlexboxItem } from 'vux'
 
     export default {
         name: 'cart',
         components: {
-            appTabbar
+            Flexbox,
+            FlexboxItem
         },
         computed: {
             ...mapState([
@@ -64,6 +94,36 @@
     }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
+    .cart-control-bar {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
 
+        background-color: #fff;
+
+        &:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+
+            width: 100%;
+            height: 1px;
+
+            border-top: 1px solid #d8d8d8;
+
+        }
+
+        .total {
+            padding: 0 15px;
+        }
+        .price {
+            color: #f8504f;
+        }
+    }
+    .check-btn {
+        border-radius: 0;
+    }
 </style>

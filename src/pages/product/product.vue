@@ -161,7 +161,7 @@
 </template>
 
 <script>
-    import {mapState, mapActions} from 'vuex'
+    import { mapState, mapActions } from 'vuex'
 
     import {
         Swiper,
@@ -228,12 +228,14 @@
             this.getProduct(this.productId);
         },
         computed: {
-            //使用对象展开运算符将此对象混入到外部对象中
             ...mapState([
                 'cart'
             ]),
         },
         methods: {
+            ...mapActions([
+                'addToCart'
+            ]),
             getProductId() {
                 return this.productId = this.$route.params.id;
             },
@@ -315,20 +317,14 @@
             },
             addCart() {
                 /*
-                 * 1.判断是否选择产品规格，没有则弹出提示
-                 * 2.更新购物车数量
-                 * 3.关闭popup
+                 * 判断是否选择产品规格，没有则弹出提示
                 */
 
                 if( this.isSelectedSpecs === true || this.isEmptyObj(this.inusespecs) ) {
-                    let currentCartCount = this.cartCount // 先保存当前购物车数量
-                    //更改cartCount值
-                    //this.cartCount = currentCartCount + this.cartCountTemp
                     //关闭popup
                     this.closeProdParam()
 
-                    
-
+                    this.addToCart(this.product);
                 } else {
                     this.noSelectedSpecs();
                 }
@@ -344,11 +340,10 @@
                 */
                 
                 if( this.isSelectedSpecs === true || this.isEmptyObj(this.inusespecs) ) {
-                    let currentCartCount = this.cartCount // 先保存当前购物车数量
-                    //更改cartCount值
-                    this.cartCount = currentCartCount + this.cartCountTemp
-                    //关闭popup
                     this.closeProdParam()
+
+                    this.addToCart(this.product)
+
                     //跳转到购物车列表页
                     this.$router.push({name: 'cart'});
 
