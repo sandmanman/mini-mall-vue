@@ -16,21 +16,35 @@
 
 
             <div class="cart-list-panel" v-else>
-                
-                <div class="cart-list">
-                    <div class="cart-item" v-for="item in cart.items" :key="item.id">
-                        <div class="image">
-                            <img src="https://placehold.it/90x90">
+
+                <div class="weui-panel weui-panel_access cart-list">
+                    <div class="weui-panel__bd">
+                        <!-- 一条 S -->
+                        <div class="weui-media-box weui-media-box_appmsg cart-item" v-for="item in cart.items" :key="item.id">
+                            <div class="check-box">
+                                <checker type="checkbox" default-item-class="checkbox-item" selected-item-class="checkbox-item-selected">
+                                    <checker-item :value="0"></checker-item>
+                                </checker>
+                            </div>
+
+                            <div class="weui-media-box__hd">
+                                <img src="https://placehold.it/90x90">
+                            </div>
+                            <div class="weui-media-box__bd">
+                                <h4 class="weui-media-box__title">{{ item.title }}</h4>
+                                <strong class="price">￥{{ item.price }}</strong>
+
+                                <div class="quantity-box">
+                                    <group>
+                                        <x-number :min="1" :value="1" @change="updateValue(item, $event)"></x-number>
+                                    </group>
+                                </div>
+                            </div>
+                            <a class="remove" @click="removeFromCart(item)">
+                                <span class="ion-close"></span>
+                            </a>
                         </div>
-                        <strong>{{ item.title }}</strong> ￥{{ item.price }}
-
-                        <input type="number" class="qty" :value="item.quantity" @change="updateValue(item, $event)">
-
-                        <a class="button is-danger is-small" @click="removeFromCart(item)">
-                            <span>
-                            Remove
-                            </span>
-                        </a>
+                        <!-- 一条 End -->
                     </div>
                 </div>
 
@@ -61,13 +75,17 @@
     import { mapState, mapGetters, mapActions } from 'vuex'
     import { numberFormat } from 'utils'
 
-    import { Flexbox, FlexboxItem } from 'vux'
+    import { Flexbox, FlexboxItem, Checker, CheckerItem,Group, XNumber } from 'vux'
 
     export default {
         name: 'cart',
         components: {
             Flexbox,
-            FlexboxItem
+            FlexboxItem,
+            Checker,
+            CheckerItem,
+            Group,
+            XNumber
         },
         computed: {
             ...mapState([
@@ -94,7 +112,7 @@
     }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
     .cart-control-bar {
         position: fixed;
         left: 0;
@@ -126,4 +144,51 @@
     .check-btn {
         border-radius: 0;
     }
+
+    .cart-item {
+        position: relative;
+        .price {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+        }
+        .check-box {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            z-index: 10;
+        }
+        .remove {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 10;
+        }
+        .weui-media-box__hd {
+            margin-right: 10px;
+            width: 90px;
+            height: 90px;
+        }
+        .weui-media-box__bd {
+            align-self: flex-start;
+        }
+        .weui-media-box__title {
+            margin-right: 50px;
+            font-size: 14px;
+        }
+    }
+
+    .quantity-box {
+        position: absolute;
+        left: 120px;
+        bottom: 15px;
+        .weui_cell {
+            padding: 0;
+        }
+    }
+    .quantity-box .weui_cells::before,
+    .quantity-box .weui_cells::after {
+        display: none;
+    }
+
 </style>

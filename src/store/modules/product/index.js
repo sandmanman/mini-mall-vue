@@ -19,7 +19,7 @@ export default {
   },
   actions: {
     fetchProducts ({ commit }) {
-      request.get('/products.json')
+      request.get('/mock/products.json')
         .then((res) => {
           const products = res.data
           commit(types.RETRIEVE_PRODUCTS, { products })

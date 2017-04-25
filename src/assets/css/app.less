@@ -54,6 +54,36 @@ body {
 }
 
 
+
+.checkbox-item {
+    width: 20px;
+    height: 20px;
+    overflow: hidden;
+    border: 2px solid #000;
+    display: inline-block;
+    line-height: 20px;
+    text-align: center;
+    background-color: #fff;
+}
+.checkbox-item-selected {
+    border-color: #000;
+    background-color: #000;
+
+    &:before {
+        content: "\f121";
+        display: inline-block;
+        color: #fff;
+        font-family: "Ionicons";
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+    }
+}
+
+
 // home feature
 .feature-panel {
     overflow-x: auto;
