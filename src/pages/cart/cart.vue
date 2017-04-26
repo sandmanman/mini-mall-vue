@@ -52,7 +52,7 @@
                     <flexbox>
                         <flexbox-item>
                             <div class="total">
-                                总价：<strong class="price">￥{{ summary | priceFormat }}</strong>
+                                总价：<strong class="price-text">￥{{ summary | priceFormat }}</strong>
                             </div>
                         </flexbox-item>
                         <flexbox-item>
@@ -136,9 +136,7 @@
 
         .total {
             padding: 0 15px;
-        }
-        .price {
-            color: #f8504f;
+            font-size: 14px;
         }
     }
     .check-btn {
@@ -176,19 +174,19 @@
             margin-right: 50px;
             font-size: 14px;
         }
-    }
 
-    .quantity-box {
-        position: absolute;
-        left: 120px;
-        bottom: 15px;
-        .weui_cell {
-            padding: 0;
+        .quantity-box {
+            position: absolute;
+            left: 120px;
+            bottom: 15px;
+            .weui_cell {
+                padding: 0;
+            }
         }
-    }
-    .quantity-box .weui_cells::before,
-    .quantity-box .weui_cells::after {
-        display: none;
+        .quantity-box .weui_cells::before,
+        .quantity-box .weui_cells::after {
+            display: none;
+        }
     }
 
 </style>
