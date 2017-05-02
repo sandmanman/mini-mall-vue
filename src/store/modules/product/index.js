@@ -4,8 +4,7 @@ import api from 'src/api/api-conf.js';
 
 // The magic path come from webpack.
 import {
-    _,
-    request
+    _
 } from 'utils'
 
 export default {
@@ -13,9 +12,6 @@ export default {
       return {
         productId: null
       }
-    },
-    created() {
-        this.getProductId();
     },
     state: {
         items: []
@@ -36,19 +32,15 @@ export default {
         fetchProducts({
             commit
         }) {
-            request.get(api.getProduct(this.productId))
+            this.$http.get(api.getProduct(977))
                 .then((res) => {
                     const products = res.data
                     commit(types.RETRIEVE_PRODUCTS, {
                         products
                     })
-                })
+                }).catch(function (error) {
+                    console.log(error);
+                });
         }
-    },
-    methods: {
-      getProductId() {
-          console.log('pid'+this.$route.params.id)
-          return this.productId = this.$route.params.id;
-      }
     }
 }

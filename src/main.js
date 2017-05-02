@@ -6,6 +6,12 @@ import Axios from './utils/axios-conf';
 import router from 'src/router/router';
 import App from './App';
 
+// fastclick
+FastClick.attach(document.body);
+
+// axios
+Vue.prototype.$http = Axios;
+
 //vuex
 import store from './store'
 
@@ -13,11 +19,8 @@ import { AlertPlugin, ToastPlugin  } from 'vux'
 Vue.use(AlertPlugin);
 Vue.use(ToastPlugin);
 
-// axios
-Vue.prototype.$http = Axios;
 
-// fastclick
-FastClick.attach(document.body);
+
 
 /* eslint-disable no-new */
 new Vue({
