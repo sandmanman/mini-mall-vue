@@ -161,7 +161,6 @@
 </template>
 
 <script>
-    import { mapState, mapActions } from 'vuex'
 
     import {
         Swiper,
@@ -228,14 +227,10 @@
             this.getProduct(this.productId);
         },
         computed: {
-            ...mapState([
-                'cart'
-            ]),
+
         },
         methods: {
-            ...mapActions([
-                'addToCart'
-            ]),
+            
             getProductId() {
                 return this.productId = this.$route.params.id;
             },
@@ -363,10 +358,7 @@
 
                 //     return true;
                 // }
-            },
-            ...mapActions([
-                'addToCart'
-            ])
+            }
 
         }
         

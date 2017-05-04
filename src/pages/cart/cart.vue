@@ -72,7 +72,6 @@
 </template>
 
 <script>
-    import { mapState, mapGetters, mapActions } from 'vuex'
     import { numberFormat } from 'utils'
 
     import { Flexbox, FlexboxItem, Checker, CheckerItem,Group, XNumber } from 'vux'
@@ -88,21 +87,13 @@
             XNumber
         },
         computed: {
-            ...mapState([
-                'cart'
-            ]),
-            ...mapGetters([
-                'summary'
-            ])
+            
         },
         methods: {
             updateValue (item, ev) {
                 this.updateQuantity({ product: item, quantity: ev.target.value })
             },
-            ...mapActions([
-                'removeFromCart',
-                'updateQuantity'
-            ])
+            
         },
         filters: {
             priceFormat (value) {
