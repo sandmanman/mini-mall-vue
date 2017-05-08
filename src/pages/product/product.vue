@@ -143,7 +143,7 @@
         <tabbar class="action-tabbar">
             <tabbar-item
                 :link="{name: 'cart'}"
-                :badge="cart.items.length == 0 ? '' : String(cart.items.length)"
+                :badge="String(0)"
                 class="cart-item">
                 <span slot="icon" class="icon-font icon-cart ion-ios-cart-outline"></span>
                 <span slot="label">购物车</span>

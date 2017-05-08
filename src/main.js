@@ -13,7 +13,7 @@ FastClick.attach(document.body);
 Vue.prototype.$http = Axios;
 
 //vuex
-import store from './store'
+import store from './stores/store'
 
 import { AlertPlugin, ToastPlugin  } from 'vux'
 Vue.use(AlertPlugin);
