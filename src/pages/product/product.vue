@@ -161,6 +161,7 @@
 </template>
 
 <script>
+    import {mapActions} from 'vuex';
 
     import {
         Swiper,
@@ -230,7 +231,8 @@
 
         },
         methods: {
-            
+            ...mapActions(['updateCard']),
+
             getProductId() {
                 return this.productId = this.$route.params.id;
             },
