@@ -6,8 +6,9 @@
 ## 技术栈
 - Vue2
 - vue-router
-- Vux
+- Vuex
 - axios
+- Vux
 - LESS
 
 ## Todo
@@ -15,7 +16,7 @@
 - [x] 商品列表页
 - [X] 商品详细页
 - [ ] 搜索
-- [ ] 购物车
+- [ ] 购物车...
 - [ ] 体验优化
 - [ ] 使用 LeanCloud 实现登录注册(是否可行)？
 
@@ -27,9 +28,14 @@
 - 点击马上购买跳转到购物车列表页;
 - 购物车中商品数量统计以及总价的统计；
 
-### Bugs
+### 购物车需解决Bugs
 - 选择商品规格：selected class
 - 未选择规格点击提交时的提示
+- ...
+
+### vuex参考实例
+- [vuex shopping-cart](https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart)
+- [vuejs-firebase-shopping-cart](https://github.com/ittus/vuejs-firebase-shopping-cart)
 
 
 
