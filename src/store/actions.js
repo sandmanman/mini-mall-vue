@@ -1,6 +1,6 @@
-import Vue from 'vue';
-
 import AV from '../server/init-leancloud';
+
+import * as types from './mutation-types';
 
 //
 //更新购物车
@@ -13,7 +13,7 @@ const updateCart = ({commit}, {item,spec,quantity,isAdd}) => {
      * quantity:商品数量
      * isAdd:是否在购物车中
      */
-    commit('UPDATE_CART', {item,spec,quantity,isAdd});
+    commit( types.UPDATE_CART, {item,spec,quantity,isAdd} );
     if(isAdd) {
         //如果添加到了购物车
         //提示添加成功
@@ -24,7 +24,7 @@ const updateCart = ({commit}, {item,spec,quantity,isAdd}) => {
         }
 
         //call message
-        commit('ADD_MESSAGE', messageObj);
+        commit( types.ADD_MESSAGE, messageObj);
     }
 }
 
@@ -33,7 +33,7 @@ const updateCart = ({commit}, {item,spec,quantity,isAdd}) => {
 //移除某个商品
 //
 const removeItemInCart = ({commit}, {item}) => {
-    commit('REMOVE_CART_ITEM', {item});
+    commit( types.REMOVE_CART_ITEM, {item});
 }
 
 
@@ -53,11 +53,42 @@ const saveShoppingCart = () => {
 }
 
 
+//
+//用户注册
+//
+const registerByEmail = () => {
+    //leancloud User Register
+}
+
+
+//
+//用户登录
+//
+const loginWithEmail = () => {
+    //leancloud User Login
+}
+
+
+//
+//退出
+//
+const logout = ({commit}) => {
+    
+    // clear current cart
+    commit(types.SET_CART, []);
+
+    //leancloud User Logout
+}
+
+
 export default {
     updateCart,
     removeItemInCart,
     getShoppingCart,
-    saveShoppingCart
+    saveShoppingCart,
+    registerByEmail,
+    loginWithEmail,
+    logout
 }
 
 
