@@ -161,7 +161,7 @@
 </template>
 
 <script>
-    import {mapActions} from 'vuex';
+    import { mapActions } from 'vuex';
 
     import {
         Swiper,
@@ -223,6 +223,10 @@
                 addOrBuy: ''
             }
         },
+        props: [
+            'item',
+            'displayList'
+        ],
         created() {
             this.getProductId();
             this.getProduct(this.productId);
@@ -231,7 +235,7 @@
 
         },
         methods: {
-            ...mapActions(['updateCard']),
+            ...mapActions(['updateCart']),
 
             getProductId() {
                 return this.productId = this.$route.params.id;
@@ -314,14 +318,18 @@
             },
             addCart() {
                 /*
-                 * 判断是否选择产品规格，没有则弹出提示
+                 * 判断是否选择商品规格或没有商品规格，没有则弹出提示
                 */
-
+                const order = {
+                    item: Object.assign({}, this.item),
+                    quantity: this.cartCountTemp,
+                    isAdd: true
+                }
                 if( this.isSelectedSpecs === true || this.isEmptyObj(this.inusespecs) ) {
                     //关闭popup
                     this.closeProdParam()
-
-                    this.addToCart(this.product);
+                    console.log(order);
+                    this.updateCart(order);
                 } else {
                     this.noSelectedSpecs();
                 }
