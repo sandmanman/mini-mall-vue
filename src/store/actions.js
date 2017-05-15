@@ -61,6 +61,7 @@ const saveShoppingCart = () => {
 }
 
 
+
 //
 //用户注册
 //
@@ -87,6 +88,9 @@ const logout = ({commit}) => {
 
     //leancloud User Logout
 }
+
+
+
 
 
 export {

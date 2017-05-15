@@ -4,7 +4,7 @@
       <div class="weui-tab">
         <div class="weui-tab__panel">
 
-            <div class="nodata-panel" v-if="!cart.items.length">
+            <div class="nodata-panel" v-if="!cartItemList.length">
                 <div class="inner">
                     <span class="icon-outer">
                         <i class="icon-font ion-ios-cart-outline"></i>
@@ -20,7 +20,7 @@
                 <div class="weui-panel weui-panel_access cart-list">
                     <div class="weui-panel__bd">
                         <!-- 一条 S -->
-                        <div class="weui-media-box weui-media-box_appmsg cart-item" v-for="item in cart.items" :key="item.id">
+                        <div class="weui-media-box weui-media-box_appmsg cart-item" v-for="item in cartItemList" :key="item.id">
                             <div class="check-box">
                                 <checker type="checkbox" default-item-class="checkbox-item" selected-item-class="checkbox-item-selected">
                                     <checker-item :value="0"></checker-item>
@@ -72,6 +72,7 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex'
     import { numberFormat } from 'utils'
 
     import { Flexbox, FlexboxItem, Checker, CheckerItem,Group, XNumber } from 'vux'
@@ -87,13 +88,20 @@
             XNumber
         },
         computed: {
-            
+            cartItemList() {
+                return this.$store.getters.cartItemList;
+            }
         },
         methods: {
+            ...mapActions(['saveShoppingCart', 'addMessage', 'removeItemInCart', 'clearCart']),
             updateValue (item, ev) {
                 this.updateQuantity({ product: item, quantity: ev.target.value })
             },
-            
+            removeFromCart: () => {
+                this.removeItemInCart({
+					item: this.cartItem
+				});
+            }
         },
         filters: {
             priceFormat (value) {

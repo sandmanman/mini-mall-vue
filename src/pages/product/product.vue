@@ -206,7 +206,6 @@
         },
         data() {
             return {
-                productId: null,
                 product: [],
                 productPicFirst: '',
                 description: [],
@@ -223,26 +222,17 @@
                 addOrBuy: ''
             }
         },
-        props: [
-            'item',
-            'displayList'
-        ],
         created() {
-            this.getProductId();
-            this.getProduct(this.productId);
+            this.getProduct();
         },
         computed: {
-
+            
         },
         methods: {
             ...mapActions(['updateCart']),
 
-            getProductId() {
-                return this.productId = this.$route.params.id;
-            },
-            getProduct(productId) {
-                let pid = productId;
-                console.log('product ID: ' + pid)
+            getProduct() {
+                let pid = this.$route.params.id;
                 this.$http.get(api.getProduct(pid))
                     .then((res) => {
                         this.product = res.data;
