@@ -236,6 +236,7 @@
                 this.$http.get(api.getProduct(pid))
                     .then((res) => {
                         this.product = res.data;
+                        
                         //产品描述
                         this.description = res.data.description;
                         //产品属性
