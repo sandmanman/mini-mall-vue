@@ -89,10 +89,11 @@
         },
         computed: {
             cartItemList() {
-                //return this.$store.getters.cartItemList;
+                return this.$store.getters.cartItemList;
             }
         },
         methods: {
+            ...mapActions(['saveShoppingCart', 'addMessage', 'removeItemInCart', 'clearCart']),
             updateValue (item, ev) {
                 this.updateQuantity({ product: item, quantity: ev.target.value })
             },
