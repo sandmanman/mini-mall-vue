@@ -42,15 +42,12 @@
             return {
                 shelfId: null,
                 limit: 10,
-                shelfCurrent: []
+                shelfProducts: []
             }
         },
         created() {
             this.getShelfId();
             this.getShelfCurrent(this.shelfId);
-        },
-        watch: {
-
         },
         methods: {
             getShelfId() {
@@ -59,7 +56,7 @@
             getShelfCurrent(shelfId) {
                 this.$http.get(api.getShelfOnly(shelfId))
                     .then((res) => {
-                        this.shelfCurrent = res.data;
+                        this.shelfProducts = res.data;
                     });
             }
         }

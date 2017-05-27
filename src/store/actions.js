@@ -1,11 +1,13 @@
 /**
- * Action 类似于 mutation，不同在于：
- * Action 提交的是 mutation，而不是直接变更状态。
- * Action 可以包含任意异步操作。
+ * actions
+ * 
+ * Actions 即是定义提交触发更改信息的描述
+ * 常见的例子有从服务端获取数据，在数据获取完成后会调用 store.commit() 来调用更改 Store 中的状态
+ * 可以在组件中使用 ispatch 来发出 Actions
  */
 
 
-
+//leancloud
 import AV from '../server/init-leancloud';
 
 import * as types from './mutation-types';
@@ -30,7 +32,7 @@ const updateCart = ({commit}, {item,spec,quantity,isAdd}) => {
             messageClass: 'success',
             autoClose: true
         }
-        console.log(messageObj);
+        alert(messageObj);
         //call message
         //commit( types.ADD_MESSAGE, messageObj);
     }
@@ -61,46 +63,11 @@ const saveShoppingCart = () => {
 }
 
 
-
-//
-//用户注册
-//
-const registerByEmail = () => {
-    //leancloud User Register
-}
-
-
-//
-//用户登录
-//
-const loginWithEmail = () => {
-    //leancloud User Login
-}
-
-
-//
-//退出
-//
-const logout = ({commit}) => {
-    
-    // clear current cart
-    commit(types.SET_CART, []);
-
-    //leancloud User Logout
-}
-
-
-
-
-
-export {
+export default {
     updateCart,
     removeItemInCart,
     getShoppingCart,
-    saveShoppingCart,
-    registerByEmail,
-    loginWithEmail,
-    logout
+    saveShoppingCart
 }
 
 

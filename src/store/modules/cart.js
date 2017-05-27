@@ -11,6 +11,7 @@ const state = {
 }
 
 // mutations
+// mutations 是唯一允许更新应用状态的地方
 const mutations = {
     //使用 ES2015 风格的计算属性命名功能来使用一个常量作为函数名
     [types.UPDATE_CART](state, {item,quantity, isAdd}) {

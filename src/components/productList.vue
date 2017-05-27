@@ -15,6 +15,8 @@
 </template>
 
 <script>
+    import { mapActions } from 'vuex'
+
     import {
         Flexbox,
         FlexboxItem

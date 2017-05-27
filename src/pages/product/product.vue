@@ -9,7 +9,7 @@
                             <!-- swiper -->
                             <div class="swiper-wrap">
                                 <swiper auto :aspect-ratio="500/800" dots-position="center">
-                                    <swiper-item v-for="img in product.images">
+                                    <swiper-item v-for="img in productItem.images">
                                         <div
                                         :style="{
                                         'background-image': 'url(' + img + ')',
@@ -26,15 +26,15 @@
                             <div class="weui-panel product-info-panel">
                                 <div class="weui-panel__bd">
                                     <div class="weui-media-box weui-media-box_text">
-                                        <h1 class="weui-media-box__title title">{{product.title}}</h1>
-                                        <strong class="price">￥{{product.price}}</strong>
-                                        <span class="original-price" v-if="product.price !== product.original_price">￥{{product.original_price}}</span>
-                                        <p class="weui-media-box__desc summary">{{product.summary}}</p>
+                                        <h1 class="weui-media-box__title title">{{productItem.title}}</h1>
+                                        <strong class="price">￥{{productItem.price}}</strong>
+                                        <span class="original-price" v-if="productItem.price !== productItem.original_price">￥{{productItem.original_price}}</span>
+                                        <p class="weui-media-box__desc summary">{{productItem.summary}}</p>
                                     </div>
                                     <div class="weui-media-box" style="padding-bottom:0;text-align:center;">
                                         <x-button @click.native="likeit" v-bind:class="{active: isLike}">
                                             <i class="icon-font ion-ios-heart"></i>
-                                            <span>{{product.like_count}}</span>
+                                            <span>{{productItem.like_count}}</span>
                                         </x-button>
 
                                         <x-button>
@@ -90,10 +90,10 @@
                     <div class="weui-panel__bd">
                         <!-- 产品图片/标题/价格 -->
                         <div class="weui-media-box weui-media-box_appmsg">
-                            <div class="weui-media-box__hd" :style="{ backgroundImage: 'url(' + productPicFirst + ')' }"></div>
+                            <div class="weui-media-box__hd"></div>
                             <div class="weui-media-box__bd">
-                                <h4 class="weui-media-box__title">{{product.title}}</h4>
-                                <strong class="price price-text">￥{{product.price}}</strong>
+                                <h4 class="weui-media-box__title">{{productItem.title}}</h4>
+                                <strong class="price price-text">￥{{productItem.price}}</strong>
                             </div>
                         </div>
 
@@ -161,7 +161,7 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex';
+    import { mapGetters, mapActions } from 'vuex';
 
     import {
         Swiper,
@@ -206,8 +206,8 @@
         },
         data() {
             return {
-                product: [],
-                productPicFirst: '',
+                productId: null,
+                productItem: [],
                 description: [],
                 attributes: [],
                 inusespecs: {},
@@ -223,27 +223,28 @@
             }
         },
         created() {
+            this.productId = this.$route.params.id;
             this.getProduct();
+
+            //dispatch getProduct
+            this.$store.dispatch('getProduct', this.productId);
         },
         computed: {
-            
+            ...mapGetters(['product'])
         },
         methods: {
             ...mapActions(['updateCart']),
 
             getProduct() {
-                let pid = this.$route.params.id;
-                this.$http.get(api.getProduct(pid))
+                this.$http.get(api.getProduct(this.productId))
                     .then((res) => {
-                        this.product = res.data;
+                        this.productItem = res.data;
                         //产品描述
                         this.description = res.data.description;
                         //产品属性
                         this.attributes = res.data.attributes;
                         //品牌信息
                         this.vendor = res.data.vendor;
-                        //产品图第一张
-                        this.productPicFirst = res.data.images[0];
 
                         //产品规格
                         var inusespecs = res.data.in_use_specs,
