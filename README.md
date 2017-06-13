@@ -34,7 +34,6 @@
 - ...
 
 ### vuex参考实例
-- [vuex shopping-cart](https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart)
 - [vuejs-firebase-shopping-cart](https://github.com/ittus/vuejs-firebase-shopping-cart)
 
 
