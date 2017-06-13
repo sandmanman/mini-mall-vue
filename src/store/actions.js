@@ -3,7 +3,7 @@
  * 
  * Actions 即是定义提交触发更改信息的描述
  * 常见的例子有从服务端获取数据，在数据获取完成后会调用 store.commit() 来调用更改 Store 中的状态
- * 可以在组件中使用 ispatch 来发出 Actions
+ * 可以在组件中使用 dispatch 来发出 Actions
  */
 
 
@@ -15,7 +15,7 @@ import * as types from './mutation-types';
 //
 //更新购物车
 //
-const updateCart = ({commit}, {item,spec,quantity,isAdd}) => {
+const updateCart = ({commit}, {item, quantity, isAdd}) => {
     /**
      * update current cart
      * item: 商品相关信息
@@ -23,16 +23,18 @@ const updateCart = ({commit}, {item,spec,quantity,isAdd}) => {
      * quantity:商品数量
      * isAdd:是否在购物车中
      */
-    commit( types.UPDATE_CART, {item,spec,quantity,isAdd} );
+    commit( types.UPDATE_CART, {item, quantity, isAdd} );
+
     if(isAdd) {
+        
         //如果添加到了购物车
         //提示添加成功
         let messageObj = {
             message: '商品' + item.title + '加入了购物车',
             messageClass: 'success',
-            autoClose: true
+            autoClose: true //提示自动关闭
         }
-        alert(messageObj);
+        console.info(messageObj);
         //call message
         //commit( types.ADD_MESSAGE, messageObj);
     }
@@ -63,7 +65,7 @@ const saveShoppingCart = () => {
 }
 
 
-export default {
+export {
     updateCart,
     removeItemInCart,
     getShoppingCart,

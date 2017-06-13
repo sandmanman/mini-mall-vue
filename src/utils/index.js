@@ -1,8 +1,7 @@
-import _ from 'lodash'
 import numberFormat from './number-format'
+import storage from './localstorage'
 
 export {
-    _,
-    request,
-    numberFormat
+    numberFormat,
+    storage
 }

@@ -18,9 +18,6 @@ const state = {
 // mutations
 // mutations 是唯一允许更新应用状态的地方
 const mutations = {
-    [types.RECEIVE_PRODUCT_ID] (state, productId) {
-        state.productId = productId
-    },
     [types.RECEIVE_PRODUCT] (state, { product }) {
         state.product = product
         state.isLoading = false

@@ -143,7 +143,7 @@
         <tabbar class="action-tabbar">
             <tabbar-item
                 :link="{name: 'cart'}"
-                :badge="String(0)"
+                :badge="String(cartNums)"
                 class="cart-item">
                 <span slot="icon" class="icon-font icon-cart ion-ios-cart-outline"></span>
                 <span slot="label">购物车</span>
@@ -161,7 +161,7 @@
 </template>
 
 <script>
-    import { mapGetters, mapActions } from 'vuex';
+    import { mapActions } from 'vuex';
 
     import {
         Swiper,
@@ -230,7 +230,14 @@
             this.$store.dispatch('getProduct', this.productId);
         },
         computed: {
-            ...mapGetters(['product'])
+            //购物车数量
+            cartNums() {
+                let res = 0
+                this.$store.getters.cartItemList.map((item, index) => {
+                    res += item.quantity
+                })
+                return res
+            }
         },
         methods: {
             ...mapActions(['updateCart']),
@@ -312,7 +319,7 @@
                  * 判断是否选择商品规格或没有商品规格，没有则弹出提示
                 */
                 const order = {
-                    item: Object.assign({}, this.item),
+                    item: Object.assign({}, this.productItem),
                     quantity: this.cartCountTemp,
                     isAdd: true
                 }
@@ -320,6 +327,7 @@
                     //关闭popup
                     this.closeProdParam()
                     console.log(order);
+                    //将商品加入购物车
                     this.updateCart(order);
                 } else {
                     this.noSelectedSpecs();
@@ -336,11 +344,12 @@
                 */
                 
                 if( this.isSelectedSpecs === true || this.isEmptyObj(this.inusespecs) ) {
+                    //关闭popup
                     this.closeProdParam()
+                    //将商品加入购物车
+                    this.updateCart(order);
 
-                    this.addToCart(this.product)
-
-                    //跳转到购物车列表页
+                    //跳转到购物车页面
                     this.$router.push({name: 'cart'});
 
                 } else {

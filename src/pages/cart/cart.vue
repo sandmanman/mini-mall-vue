@@ -9,7 +9,7 @@
                     <span class="icon-outer">
                         <i class="icon-font ion-ios-cart-outline"></i>
                     </span>
-                    <p class="text">您的购物车里面没有商品<br>快去挑选吧</p>
+                    <p class="text">您的购物车里面没有商品，快去挑选吧</p>
                     <a href="/" class="weui-btn weui-btn_plain-default weui-btn_mini">去挑选</a>
                 </div>
             </div>
@@ -27,9 +27,8 @@
                                 </checker>
                             </div>
 
-                            <div class="weui-media-box__hd">
-                                <img src="https://placehold.it/90x90">
-                            </div>
+                            <div class="weui-media-box__hd" :style="{ backgroundImage: 'url(' + item.cover_image + ')'}"></div>
+
                             <div class="weui-media-box__bd">
                                 <h4 class="weui-media-box__title">{{ item.title }}</h4>
                                 <strong class="price">￥{{ item.price }}</strong>
@@ -40,7 +39,7 @@
                                     </group>
                                 </div>
                             </div>
-                            <a class="remove" @click="removeFromCart(item)">
+                            <a class="remove" @click="removeItem">
                                 <span class="ion-close"></span>
                             </a>
                         </div>
@@ -52,7 +51,7 @@
                     <flexbox>
                         <flexbox-item>
                             <div class="total">
-                                总价：<strong class="price-text">￥{{ summary | priceFormat }}</strong>
+                                总价：<strong class="price-text">￥{{ cartTotalPrice | priceFormat }}</strong>
                             </div>
                         </flexbox-item>
                         <flexbox-item>
@@ -72,7 +71,7 @@
 </template>
 
 <script>
-    import { mapActions } from 'vuex'
+    import { mapGetters, mapActions } from 'vuex'
     import { numberFormat } from 'utils'
 
     import { Flexbox, FlexboxItem, Checker, CheckerItem,Group, XNumber } from 'vux'
@@ -88,19 +87,26 @@
             XNumber
         },
         computed: {
-            cartItemList() {
-                return this.$store.getters.cartItemList;
-            }
+            // cartItemList() {
+            //     return this.$store.getters.cartItemList;
+            // }
+            ...mapGetters(['cartItemList', 'cartTotalPrice'])
         },
         methods: {
-            ...mapActions(['saveShoppingCart', 'addMessage', 'removeItemInCart', 'clearCart']),
-            updateValue (item, ev) {
+            ...mapActions([
+                'saveShoppingCart',
+                'addMessage',
+                'removeItemInCart',
+                'clearCart'
+                ]
+            ),
+            updateTotalPrice (item, ev) {
                 this.updateQuantity({ product: item, quantity: ev.target.value })
             },
-            removeFromCart: () => {
+            removeItem() {
                 this.removeItemInCart({
-					item: this.cartItem
-				});
+                    item: this.cartItemList
+                })
             }
         },
         filters: {
@@ -165,6 +171,10 @@
             margin-right: 10px;
             width: 90px;
             height: 90px;
+
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
         }
         .weui-media-box__bd {
             align-self: flex-start;
