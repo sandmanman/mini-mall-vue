@@ -19,31 +19,9 @@
 
                 <div class="weui-panel weui-panel_access cart-list">
                     <div class="weui-panel__bd">
-                        <!-- 一条 S -->
-                        <div class="weui-media-box weui-media-box_appmsg cart-item" v-for="item in cartItemList" :key="item.id">
-                            <div class="check-box">
-                                <checker type="checkbox" default-item-class="checkbox-item" selected-item-class="checkbox-item-selected">
-                                    <checker-item :value="0"></checker-item>
-                                </checker>
-                            </div>
+                        
+                        <cart-item v-for="cartItem in cartItemList" :cartItem="cartItem" :key="cartItem.id"></cart-item>
 
-                            <div class="weui-media-box__hd" :style="{ backgroundImage: 'url(' + item.cover_image + ')'}"></div>
-
-                            <div class="weui-media-box__bd">
-                                <h4 class="weui-media-box__title">{{ item.title }}</h4>
-                                <strong class="price">￥{{ item.price }}</strong>
-
-                                <div class="quantity-box">
-                                    <group>
-                                        <x-number :min="1" :value="1" @change="updateValue(item, $event)"></x-number>
-                                    </group>
-                                </div>
-                            </div>
-                            <a class="remove" @click="removeItem">
-                                <span class="ion-close"></span>
-                            </a>
-                        </div>
-                        <!-- 一条 End -->
                     </div>
                 </div>
 
@@ -74,17 +52,16 @@
     import { mapGetters, mapActions } from 'vuex'
     import { numberFormat } from 'utils'
 
-    import { Flexbox, FlexboxItem, Checker, CheckerItem,Group, XNumber } from 'vux'
+    import { Flexbox, FlexboxItem } from 'vux'
+
+    import cartItem from 'components/cartItem';
 
     export default {
         name: 'cart',
         components: {
             Flexbox,
             FlexboxItem,
-            Checker,
-            CheckerItem,
-            Group,
-            XNumber
+            cartItem
         },
         computed: {
             // cartItemList() {
@@ -95,19 +72,9 @@
         methods: {
             ...mapActions([
                 'saveShoppingCart',
-                'addMessage',
-                'removeItemInCart',
-                'clearCart'
-                ]
-            ),
-            updateTotalPrice (item, ev) {
-                this.updateQuantity({ product: item, quantity: ev.target.value })
-            },
-            removeItem() {
-                this.removeItemInCart({
-                    item: this.cartItemList
-                })
-            }
+                'clearCart',
+                //'pushMessage',
+            ])
         },
         filters: {
             priceFormat (value) {
