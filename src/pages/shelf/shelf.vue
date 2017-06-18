@@ -42,7 +42,7 @@
             return {
                 shelfId: null,
                 limit: 10,
-                shelfProducts: []
+                shelfCurrent: []
             }
         },
         created() {
@@ -54,9 +54,10 @@
                 return this.shelfId = this.$route.params.id;
             },
             getShelfCurrent(shelfId) {
+                var _this = this
                 this.$http.get(api.getShelfOnly(shelfId))
                     .then((res) => {
-                        this.shelfProducts = res.data;
+                        _this.shelfCurrent = res.data;
                     });
             }
         }
