@@ -28,16 +28,13 @@
 - 点击马上购买跳转到购物车列表页;
 - 购物车中商品数量统计以及总价的统计；
 
-### 购物车需解决Bugs
+### 加入购物车需解决Bug
 - 选择商品规格：selected class
 - 未选择规格点击提交时的提示
 - ...
 
 ### vuex参考实例
 - [vuejs-firebase-shopping-cart](https://github.com/ittus/vuejs-firebase-shopping-cart)
-
-
-
 
 ## 资料
 - [webpack 配置文件中文注释](http://www.qdfuns.com/notes/40585/9e2cd48b5ef2c1fc14118eabe67d11bc.html)
